@@ -1,0 +1,147 @@
+.custom-colors {
+	background-color: rgb(128, 21, 21);
+}
+
+.fontColor {
+	color: rgb(38, 120, 177);
+}
+
+.logo {
+	width: 100%;
+	height: auto;
+}
+
+body {
+	background-color: rgb(212,106,106);
+}
+
+.pageTitle{
+	justify-content: center;
+	align-items: center;
+	display: flex;
+	padding-top: 130px;
+	padding-bottom: 50px;
+}
+
+.main-view {
+	height: 40vh;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+.main-card {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	padding-bottom: 100px;
+}
+
+/*set logo top margin for larger screens*/
+@media only screen and (min-width: 401px) {
+	.logo {
+		margin-top: 200px;
+	}
+	.landingPadding {
+		margin-top: 200px;
+		margin-right: 80px;
+	}
+}
+
+@media only screen and (min-width: 768px){
+	.landingPadding {
+		margin-top: 375px;
+		margin-right: 80px;
+	}
+}
+
+@media only screen and (min-width: 923px) {
+	.landingPadding {
+		margin-top: 310px;
+		margin-right: 80px;
+	}
+}
+
+
+
+.serviceCards {
+	padding-top: 250px;
+	padding-bottom: 200px;
+	color: white;
+	padding-right: 20px;
+}
+
+@media only screen and (max-width: 401px) {
+	.serviceCards {
+		padding-top: 50px;
+		padding-bottom: 100px;
+	}
+}
+
+@media only screen and (min-width: 769px) and (max-width: 850px) {
+	.serviceCards {
+		padding-top: 400px;
+		padding-bottom: 100px;
+	}
+}
+
+@media only screen and (min-width: 851px) and (max-width: 921px) {
+	.serviceCards {
+		padding-top: 300px;
+		padding-bottom: 100px;
+	}
+}
+
+@media screen and (min-width: 320px) and (max-width: 860px) and (orientation: landscape) {
+  .landingPadding{
+  	padding-top: 250px;
+  }
+  .serviceCards {
+  	padding-top: 350px;
+  }
+}
+
+.aboutP {
+	padding-top: 30px;
+}
+
+input[type=button], input[type=submit], input[type=reset] {
+  background-color: rgb(38, 120, 177);
+  border: none;
+  border-radius: 20px;
+  font-family: "comic sans";
+  font-size: 15px;
+  color: white;
+  padding: 16px 25px;
+  text-decoration: none;
+  margin: 4px 2px;
+  cursor: pointer;
+}
+
+label {
+	font-size: 20px;
+	font-family: "comic sans";
+	color: rgb(38, 120, 177);;
+}
+
+.checkbox{
+	font-size: 15px;
+}
+
+input[type=text], input[type=tel], input[type=email]{
+	border: none;
+	border-bottom: 1px solid black;
+	padding-top: 10px;
+	padding-bottom: 5px;
+}
+
+form {
+	margin-top: 20px;
+	padding-bottom: 100px;
+}
+
+.contact-form {
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
