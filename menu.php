@@ -107,8 +107,3 @@ include_once 'navbar.php';
 include_once 'footer.php';
 ?>
 
-thth
-ththt
-ththt
-
-gtgt
