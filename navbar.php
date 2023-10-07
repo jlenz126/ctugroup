@@ -3,7 +3,8 @@
     <nav class="navbar navbar-expand-lg fixed-top navbar-dark custom-colors">
 	  <div class="container-fluid">
 		<!-- change home link to mini logo image -->
-	  	<a class="navbar-brand" href="index.php">Home</a>
+		<!-- mini logo added replaced home link -->
+	  	<a class="navbar-brand" href="index.php"><img src="images/pizza-logo.png" alt="logo"></a>
 		<a class="navbar-brand" href="menu.php">Menu</a>
 	    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 	      <span class="navbar-toggler-icon"></span>
