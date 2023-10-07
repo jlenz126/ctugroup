@@ -9,7 +9,8 @@ include_once 'navbar.php';
 		<div class="row">
 			<div class="main-view landingPadding">
 				<!-- Add logo and restaurant here <h1> is just a place holder -->
-				<h1>Restaurant Logo/Title</h1>
+				<div class="video-container">
+           			     <video autoplay loop muted playsinline><source src="video/pizza_oven2.mp4" alt="video"></video>
 			</div>
 		</div>
 	</div>
