@@ -5,10 +5,10 @@ include_once 'navbar.php';
 ?>
 
 <style>
-    /* Styling */
+    /* Default Styling */
     .main-view {
         max-width: 800px;
-        margin: 0 auto; 
+        margin: 0 auto;
         padding: 20px;
     }
     .contact-box {
@@ -16,7 +16,7 @@ include_once 'navbar.php';
         padding: 20px;
         border-radius: 8px;
         position: relative;
-        margin-top: 200px;
+        margin-top: 350px;
     }
     .contact-box::before {
         content: "CONTACT US";
@@ -28,6 +28,28 @@ include_once 'navbar.php';
     }
     h2, h3 {
         margin-top: 20px;
+    }
+
+    /* Responsive Styling for screens 600px or smaller */
+    @media screen and (max-width: 600px) {
+        .main-view {
+            max-width: 100%;
+            padding: 5px;
+        }
+        .contact-box {
+            margin-top: 300px;
+            padding: 10px;
+        }
+        .contact-box::before {
+            font-size: 28px;
+        }
+        h2, h3 {
+            margin-top: 10px;
+            font-size: 20px;
+        }
+        p, li {
+            font-size: 14px;
+        }
     }
 </style>
 
@@ -65,3 +87,10 @@ include_once 'navbar.php';
 <?php
 include_once 'footer.php';
 ?>
+
+
+
+
+
+
+
