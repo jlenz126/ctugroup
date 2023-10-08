@@ -1,7 +1,7 @@
 <?php
-// Assuming you have a session.php file for session management
+
 include_once 'session.php';
-include_once 'db_connection.php'; // Includes your database connection details
+include_once 'db_connection.php'; // Includes database connection details
 
 // Initialize a variable to store error/success messages
 $message = '';
