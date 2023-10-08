@@ -46,6 +46,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 ?>
 
+
+<style>
+    body {
+        padding-top: 275px;  /* Adjusted based on navbar height */
+    }
+
+</style>
+
 <div class="container-fluid">
     <div class="row">
         <div class="main-view landingPadding">
