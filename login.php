@@ -6,14 +6,19 @@ include_once 'navbar.php';
 
 <style>
     /* Additional CSS for better presentation */
+
+    body {
+        padding-top: 275px; /* Adjusted based on navbar's height */
+    }
     .main-view {
-        max-width: 400px;
-        margin: 50px auto; /* Vertically and horizontally centered */
+        max-width: 600px;
+        margin: 0 auto; /* Vertically centered and horizontally centered */
+        padding: 15px;  /* Some padding for better spacing */
     }
     .form-element,
     .form-button,
     .register-link {
-        margin-bottom: 20px;
+        margin-bottom: 15px;
     }
 </style>
 
