@@ -6,17 +6,21 @@ include_once 'navbar.php';
 
 <style>
     /* Default Styling */
+
+    body {
+        padding-top: 275px; /* Adjust for larger navbar */
+    }
     .main-view {
         max-width: 800px;
         margin: 0 auto;
-        padding: 20px;
+        padding: 10px;
     }
     .contact-box {
         border: 2px solid #ddd;
         padding: 20px;
         border-radius: 8px;
         position: relative;
-        margin-top: 350px;
+        margin-top: 20px;
     }
     .contact-box::before {
         content: "CONTACT US";
@@ -37,8 +41,8 @@ include_once 'navbar.php';
             padding: 5px;
         }
         .contact-box {
-            margin-top: 300px;
-            padding: 10px;
+            margin-top: 20px;
+            padding: 20px;
         }
         .contact-box::before {
             font-size: 28px;
@@ -48,7 +52,7 @@ include_once 'navbar.php';
             font-size: 20px;
         }
         p, li {
-            font-size: 14px;
+            font-size: 12px;
         }
     }
 </style>
