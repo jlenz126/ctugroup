@@ -9,6 +9,18 @@ which I'll create another dump for that
 You should be able to copy and paste all of the sql in one swing to start your database
 */
 
+/*
+John Doe Manager
+username: manager
+password: manager
+
+Jane Doe Customer
+username: customer
+password: customer
+
+Passwords are hashed using PHP's built in hashing function with no changes
+*/
+
 CREATE TABLE `user` (
   `id` integer PRIMARY KEY AUTO_INCREMENT,
   `username` varchar(255),
