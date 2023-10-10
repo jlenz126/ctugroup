@@ -111,3 +111,47 @@ INSERT INTO `category` (`id`, `category_name`, `display_order`, `display_boolean
 
 INSERT INTO `user` (`id`, `username`, `firstname`, `lastname`, `password`, `employee`, `created_at`) VALUES ('1', 'manager', 'John', 'Doe', '$2y$10$UlG7JQHcdDlN5cuYg078C.Z4SnkJZB7Dc8IiXUEXlif7WS1jPBWKu', '1', current_timestamp());
 INSERT INTO `user` (`id`, `username`, `firstname`, `lastname`, `password`, `employee`, `created_at`) VALUES ('2', 'customer', 'Jane', 'Doe', '$2y$10$jgcBqUTA8arxnqFrSMpN1.edTL4ShD/uA1X0RnuXiKYxwy3EUki2W', '0', current_timestamp());
+
+/* Added toppings, appetizers, pizzas, combos, and drinks*/
+
+INSERT INTO `topping` (`id`, `topping_name`, `premium_topping`) VALUES ('1', 'pepperoni', '0');
+INSERT INTO `topping` (`id`, `topping_name`, `premium_topping`) VALUES ('2', 'sausage', '0');
+INSERT INTO `topping` (`id`, `topping_name`, `premium_topping`) VALUES ('3', 'bacon', '1');
+INSERT INTO `topping` (`id`, `topping_name`, `premium_topping`) VALUES ('4', 'italian sausage', '1');
+INSERT INTO `topping` (`id`, `topping_name`, `premium_topping`) VALUES ('5', 'chicken', '1');
+INSERT INTO `topping` (`id`, `topping_name`, `premium_topping`) VALUES ('6', 'onion', '0');
+INSERT INTO `topping` (`id`, `topping_name`, `premium_topping`) VALUES ('7', 'spinach', '0');
+INSERT INTO `topping` (`id`, `topping_name`, `premium_topping`) VALUES ('8', 'green bell peppers', '0');
+INSERT INTO `topping` (`id`, `topping_name`, `premium_topping`) VALUES ('9', 'mozzarella cheese', '0');
+INSERT INTO `topping` (`id`, `topping_name`, `premium_topping`) VALUES ('10', 'parmesan cheese', '0');
+INSERT INTO `topping` (`id`, `topping_name`, `premium_topping`) VALUES ('11', 'cheddar cheese', '0');
+INSERT INTO `topping` (`id`, `topping_name`, `premium_topping`) VALUES ('12', 'olives', '0');
+
+INSERT INTO `item` (`id`, `item_name`, `item_description`, `item_price`, `category_id`) VALUES ('1', 'cheesy breadsticks', NULL, '8.00', '1');
+INSERT INTO `item` (`id`, `item_name`, `item_description`, `item_price`, `category_id`) VALUES ('2', 'fries', NULL, '5.00', '1');
+INSERT INTO `item` (`id`, `item_name`, `item_description`, `item_price`, `category_id`) VALUES ('3', 'chips and dip', NULL, '3.00', '1');
+INSERT INTO `item` (`id`, `item_name`, `item_description`, `item_price`, `category_id`) VALUES ('4', 'fired pickles', NULL, '6.00', '1');
+INSERT INTO `item` (`id`, `item_name`, `item_description`, `item_price`, `category_id`) VALUES ('5', 'mac n\' cheese', NULL, '6.00', '1');
+INSERT INTO `item` (`id`, `item_name`, `item_description`, `item_price`, `category_id`) VALUES ('6', 'salad', NULL, '5.00', '1');
+
+INSERT INTO `item` (`id`, `item_name`, `item_description`, `item_price`, `category_id`) VALUES ('7', 'kid\'s meal 1', '1 slice of pepperoni or OG pizza and a drink', '6.00', '3');
+INSERT INTO `item` (`id`, `item_name`, `item_description`, `item_price`, `category_id`) VALUES ('8', 'kid\'s meal 2', 'Mac n\' Cheese and a drink', '6.00', '3');
+
+INSERT INTO `item` (`id`, `item_name`, `item_description`, `item_price`, `category_id`) VALUES ('9', 'cheese pizza', 'plain cheese pizza', '10.00', '2');
+INSERT INTO `item` (`id`, `item_name`, `item_description`, `item_price`, `category_id`) VALUES ('10', 'pepperoni pizza', 'pizza with pepperoni', '11.00', '2');
+INSERT INTO `item` (`id`, `item_name`, `item_description`, `item_price`, `category_id`) VALUES ('11', 'Meatzilla', 'Pepperoni, sausage, and bacon', '13.50', '2');
+INSERT INTO `item` (`id`, `item_name`, `item_description`, `item_price`, `category_id`) VALUES ('12', 'Veggie Pizza', 'Onion, spinach, olives, and green bell peppers', '14.00', '2');
+INSERT INTO `item` (`id`, `item_name`, `item_description`, `item_price`, `category_id`) VALUES ('13', 'the godfather', 'Italian sausage, pepperoni, onion, olives, and spinach', '15.50', '2');
+INSERT INTO `item` (`id`, `item_name`, `item_description`, `item_price`, `category_id`) VALUES ('14', 'queen bee', 'Chicken, bacon, and spinach', '14.00', '2');
+INSERT INTO `item` (`id`, `item_name`, `item_description`, `item_price`, `category_id`) VALUES ('15', 'The OG', 'Mozzarella, parmesan, and cheddar cheese', '13.00', '2');
+
+INSERT INTO `item` (`id`, `item_name`, `item_description`, `item_price`, `category_id`) VALUES ('16', 'combo 1', '1 slice of pizza and 1 small drink', '6.00', '4');
+INSERT INTO `item` (`id`, `item_name`, `item_description`, `item_price`, `category_id`) VALUES ('17', 'combo 2', '1 small pizza and 1 large drink, and 1 appetizer', '15.00', '4');
+INSERT INTO `item` (`id`, `item_name`, `item_description`, `item_price`, `category_id`) VALUES ('18', 'combo 3', '1 medium pizza and 1 large drink, and 1 appetizer', '18.00', '4');
+INSERT INTO `item` (`id`, `item_name`, `item_description`, `item_price`, `category_id`) VALUES ('19', 'combo 4', '1 large pizza and 2 large drinks, and 2 appetizer', '25.00', '4');
+
+INSERT INTO `item` (`id`, `item_name`, `item_description`, `item_price`, `category_id`) VALUES ('20', 'coke', NULL, '2.00', '5');
+INSERT INTO `item` (`id`, `item_name`, `item_description`, `item_price`, `category_id`) VALUES ('21', 'pepsi', NULL, '2.00', '5');
+INSERT INTO `item` (`id`, `item_name`, `item_description`, `item_price`, `category_id`) VALUES ('22', 'Dr. Pepper', NULL, '2.00', '5');
+INSERT INTO `item` (`id`, `item_name`, `item_description`, `item_price`, `category_id`) VALUES ('23', 'Mt. Dew', NULL, '2.00', '5');
+INSERT INTO `item` (`id`, `item_name`, `item_description`, `item_price`, `category_id`) VALUES ('24', 'Lemonade', NULL, '2.00', '5');
