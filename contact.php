@@ -11,22 +11,6 @@ include_once 'navbar.php';
         margin: 0 auto; 
         padding: 20px;
     }
-    .contact-box {
-        border: 2px solid #ddd;
-        padding: 20px;
-        border-radius: 8px;
-        position: relative;
-        margin-top: 500px;
-
-    }
-    .contact-box::before {
-        content: "CONTACT US";
-        font-size: 40px;
-        font-weight: bold;
-        text-align: center;
-        display: block;
-        margin-bottom: 20px;
-    }
     h2, h3 {
         margin-top: 20px;
     }
