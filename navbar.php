@@ -14,9 +14,11 @@
 		  	<li class="nav-item">
 	          <a class="nav-link active" aria-current="page" href="login.php">Login</a>
 	        </li>
-		 	<li class="nav-item">
+		 	<!-- Feature to be added later
+			<li class="nav-item">
 	          <a class="nav-link active" aria-current="page" href="reviews.php">Reviews</a>
 	        </li>
+			-->
 			<li class="nav-item">
 	          <a class="nav-link active" aria-current="page" href="contact.php">Contact Us</a>
 	        </li>
