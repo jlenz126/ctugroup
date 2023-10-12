@@ -159,8 +159,10 @@ INSERT INTO `item` (`id`, `item_name`, `item_description`, `item_price`, `catego
 /* Adding column to item table to store default toppings*/
 
 ALTER TABLE item add default_topping varchar(255);
+UPDATE `item` SET `default_topping` = 'pepperoni' WHERE `item`.`id` = 10;
 UPDATE `item` SET `default_topping` = 'pepperoni,sausage,bacon' WHERE `item`.`id` = 11;
 UPDATE `item` SET `default_topping` = 'onion,spinach,olives,green bell peppers' WHERE `item`.`id` = 12;
 UPDATE `item` SET `default_topping` = 'italian sausage,pepperoni,onion,olives,spinach' WHERE `item`.`id` = 13;
 UPDATE `item` SET `default_topping` = 'chicken,bacon,spinach' WHERE `item`.`id` = 14;
 UPDATE `item` SET `default_topping` = 'mozzarella,parmesan,cheddar cheese' WHERE `item`.`id` = 15;
+UPDATE `item` SET `item_description` = '1 slice of cheese pizza and a drink' WHERE `item`.`id` = 7;
