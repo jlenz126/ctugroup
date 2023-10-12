@@ -19,6 +19,9 @@ $conn = OpenCon();
             $category_name_display = ucwords(strtolower($row['category_name']));
             $category_name_cleaned = strtolower(preg_replace('/[^a-zA-Z0-9-_\.]/','', $category_name_display));
             $category_target = "#" . $category_name_cleaned;
+            $category_id = $row['id'];
+            $uppercase_words = array("A","And","Or","Of","Og","With");
+            $lowercase_words = array("a","and","or","of","OG","with");
             
             echo '<div class="accordion-item">';
               echo '<h2 class="accordion-header">';
@@ -28,7 +31,27 @@ $conn = OpenCon();
               echo '</h2>';
               echo '<div id="' . $category_name_cleaned . '" class="accordion-collapse collapse" data-bs-parent="#MenuAccordion">';
                 echo '<div class="accordion-body">';
-                  echo 'accordion body'; //cards for each item
+                  echo '<div class="row container-fluid menu-cards">';
+                    $sql_item = "SELECT item_name, item_description, item_price FROM `item` WHERE category_id = '$category_id'";
+                    $result_item = $conn->query($sql_item);
+                    while($row2 = $result_item->fetch_assoc()){
+                      $item_name_display = ucwords(strtolower($row2['item_name']));
+                      $item_description = ucwords(strtolower($row2['item_description']));
+                      $item_description_display = str_replace($uppercase_words,$lowercase_words,$item_description); 
+                      $item_price = number_format((float)$row2['item_price'], 2,'.','');
+                      
+                      echo '<div class="col-sm-12 col-md-4">';
+	                      echo '<div class="card h-100">';
+	                        echo '<div class="card-body">';
+	                          echo '<h5 class="card-title">'.$item_name_display.'</h5>';
+                            echo '<h5 class="card-title">Price: $'.$item_price.'</h5>';
+	                          echo '<p class="card-text">'.$item_description_display. '</p>';
+			                      echo '<a href="featured1.php" class="btn btn-primary">Add to Cart</a>'; //Change to form with hidden values
+	                        echo '</div>';
+	                      echo '</div>';
+	                    echo '</div>';
+                    }
+                  echo '</div>';
                 echo '</div>';
               echo '</div>';
             echo '</div>';
@@ -37,31 +60,11 @@ $conn = OpenCon();
         echo '</div>';
         CloseCon($conn);
       ?>
-                
-
-                        <?php /*
-                        if ($result->num_rows > 0) {
-                        while($row = $result->fetch_assoc()) {
-                            $category = ucwords(strtolower($row['category']));
-
-                            echo "category " . $category. "<br>";
-                            $sql2 = "SELECT item_name, item_description, item_price FROM item WHERE category='$category'";
-                            $result2 = $conn->query($sql2);
-                            while($row2 = $result2->fetch_assoc()){
-                                echo "Item Name: " . $row2["item_name"]. " Description: " . $row2["item_description"]. " Price: $" . $row2["item_price"]. "<br>";
-                            }
-                        }
-                        } else {
-                        echo "0 results";
-                        }
-                        
-                        CloseCon($conn); */
-                        ?>
 			</div>
 		</div>
 	</div>
 
-<h1 style="padding-bottom: 600px"></h1>
+<h1 style="padding-bottom: 300px"></h1>
     
             
 <?php
