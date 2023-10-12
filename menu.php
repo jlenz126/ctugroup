@@ -12,6 +12,8 @@ $conn = OpenCon();
       <?php
         $sql_categories = "SELECT id, category_name FROM category WHERE 1 ORDER BY display_order";
         $result_categories = $conn->query($sql_categories);
+        $uppercase_words = array("A","And","Or","Of","Og","With");
+        $lowercase_words = array("a","and","or","of","OG","with");
 
         echo '<div class="accordion accordion-flush" id="MenuAccordion">';
         if($result_categories->num_rows > 0) {
@@ -20,8 +22,6 @@ $conn = OpenCon();
             $category_name_cleaned = strtolower(preg_replace('/[^a-zA-Z0-9-_\.]/','', $category_name_display));
             $category_target = "#" . $category_name_cleaned;
             $category_id = $row['id'];
-            $uppercase_words = array("A","And","Or","Of","Og","With");
-            $lowercase_words = array("a","and","or","of","OG","with");
             
             echo '<div class="accordion-item">';
               echo '<h2 class="accordion-header">';
@@ -48,6 +48,7 @@ $conn = OpenCon();
 	                          echo '<p class="card-text">'.$item_description_display. '</p>';
 			                      echo '<form method="post" action="add_to_cart.php">';
                             echo '<input type="hidden" id="itemName" name="itemName" value="'. $row2['item_name'] .'">';
+                            echo '<input type="hidden" id="itemID" name="itemID" value="'. $category_id .'">';
                             echo '<button type="submit" class="btn btn-primary">Add to Cart</button>'; 
                             echo '</form>';
 	                        echo '</div>';
