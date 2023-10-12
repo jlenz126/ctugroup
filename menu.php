@@ -60,18 +60,6 @@ $conn = OpenCon();
 			</div>
 		</div>
 	</div>
-<!--
-  <div id="accordion">
-    <div class="card">
-      <div class="card-header" id="headingOne">
-        <h5 class="mb-0">
-          <button class="btn btn-secondary" data-bs-toggle="collapse" data-bs-target="#collapseOne" aria-expanded="false" aria-controls="collapseOne">
-            Collapsible Group Item #1
-          </button>
-        </h5>
-      </div>
-    </div>
-  </div> -->
 
 <h1 style="padding-bottom: 600px"></h1>
     
@@ -79,37 +67,3 @@ $conn = OpenCon();
 <?php
 include_once 'footer.php';
 ?>
-
-<!--<div id="collapseOne" class="collapse" aria-labelledby="headingOne" data-bs-parent="#accordion">
-        <div class="card-body">
-        <div class="row container-fluid serviceCards">
-      <div class="col-sm-12 col-md-4">
-        <div class="card h-100">
-          <div class="card-body custom-colors">
-            <h5 class="card-title">Featured Item 1</h5>
-            <p class="card-text">description of item</p>
-        <a href="featured1.php" class="btn btn-light">Add to Cart</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-12 col-md-4">
-        <div class="card h-100">
-          <div class="card-body custom-colors">
-            <h5 class="card-title">Specials</h5>
-            <p class="card-text">Current deals and specials</p>
-        <a href="specials.php" class="btn btn-light">Specials</a>
-          </div>
-        </div>
-      </div>
-      <div class="col-sm-12 col-md-4">
-        <div class="card h-100">
-          <div class="card-body custom-colors">
-            <h5 class="card-title">Featured Item 2</h5>
-            <p class="card-text">description of item</p>
-        <a href="featured2.php" class="btn btn-light">Add to Cart</a>
-          </div>
-        </div>
-      </div>
-          </div>
-        </div>
-      </div> -->
