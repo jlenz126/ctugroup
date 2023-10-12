@@ -155,3 +155,12 @@ INSERT INTO `item` (`id`, `item_name`, `item_description`, `item_price`, `catego
 INSERT INTO `item` (`id`, `item_name`, `item_description`, `item_price`, `category_id`) VALUES ('22', 'Dr. Pepper', NULL, '2.00', '5');
 INSERT INTO `item` (`id`, `item_name`, `item_description`, `item_price`, `category_id`) VALUES ('23', 'Mt. Dew', NULL, '2.00', '5');
 INSERT INTO `item` (`id`, `item_name`, `item_description`, `item_price`, `category_id`) VALUES ('24', 'Lemonade', NULL, '2.00', '5');
+
+/* Adding column to item table to store default toppings*/
+
+ALTER TABLE item add default_topping varchar(255);
+UPDATE `item` SET `default_topping` = 'pepperoni,sausage,bacon' WHERE `item`.`id` = 11;
+UPDATE `item` SET `default_topping` = 'onion,spinach,olives,green bell peppers' WHERE `item`.`id` = 12;
+UPDATE `item` SET `default_topping` = 'italian sausage,pepperoni,onion,olives,spinach' WHERE `item`.`id` = 13;
+UPDATE `item` SET `default_topping` = 'chicken,bacon,spinach' WHERE `item`.`id` = 14;
+UPDATE `item` SET `default_topping` = 'mozzarella,parmesan,cheddar cheese' WHERE `item`.`id` = 15;
