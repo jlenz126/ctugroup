@@ -46,7 +46,7 @@ $conn = OpenCon();
 	                          echo '<h5 class="card-title">'.$item_name_display.'</h5>';
                             echo '<h5 class="card-title">Price: $'.$item_price.'</h5>';
 	                          echo '<p class="card-text">'.$item_description_display. '</p>';
-			                      echo '<form action="add_to_cart.php">';
+			                      echo '<form method="post" action="add_to_cart.php">';
                             echo '<input type="hidden" id="itemName" name="itemName" value="'. $row2['item_name'] .'">';
                             echo '<button type="submit" class="btn btn-primary">Add to Cart</button>'; 
                             echo '</form>';
