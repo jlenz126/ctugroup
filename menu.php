@@ -32,7 +32,7 @@ $conn = OpenCon();
               echo '<div id="' . $category_name_cleaned . '" class="accordion-collapse collapse" data-bs-parent="#MenuAccordion">';
                 echo '<div class="accordion-body">';
                   echo '<div class="row container-fluid menu-cards">';
-                    $sql_item = "SELECT item_name, item_description, item_price FROM `item` WHERE category_id = '$category_id'";
+                    $sql_item = "SELECT id, item_name, item_description, item_price FROM `item` WHERE category_id = '$category_id'";
                     $result_item = $conn->query($sql_item);
                     while($row2 = $result_item->fetch_assoc()){
                       $item_name_display = ucwords(strtolower($row2['item_name']));
@@ -48,7 +48,8 @@ $conn = OpenCon();
 	                          echo '<p class="card-text">'.$item_description_display. '</p>';
 			                      echo '<form method="post" action="add_to_cart.php">';
                             echo '<input type="hidden" id="itemName" name="itemName" value="'. $row2['item_name'] .'">';
-                            echo '<input type="hidden" id="itemID" name="itemID" value="'. $category_id .'">';
+                            echo '<input type="hidden" id="categoryID" name="categoryID" value="'. $category_id .'">';
+                            echo '<input type="hidden" id="itemID" name="itemID" value="'. $row2['id'] .'">';
                             echo '<button type="submit" class="btn btn-primary">Add to Cart</button>'; 
                             echo '</form>';
 	                        echo '</div>';
