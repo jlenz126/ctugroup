@@ -4,16 +4,50 @@ include_once 'header.php';
 include_once 'navbar.php';
 include_once 'db_connection.php';
 $itemID = $_POST['itemID'];
+$conn = OpenCon();
+$orderID = 1; //temporay test variable to add to test order
+
+function updateTotalPrice ($conn, $orderID) {
+    $sql_old_total = "SELECT `order_total` FROM `order` WHERE id=$orderID;";
+    $result_old_total = $conn->query($sql_old_total);
+    $old_total = $result_old_total->fetch_row()[0];
+    $new_total = $old_total + $_POST['itemPrice'];
+    $sql_new_total = "UPDATE `order` SET `order_total` = $new_total WHERE `order`.`id` = $orderID;";
+    $conn->query($sql_new_total);
+}
 
 if($_POST['categoryID'] == 1){
-    //code to add appetizer straight to cart
-    //redirect back to menu
+    $sql_add_appetizer = "INSERT INTO `order_item` (`id`, `order_id`, `item_id`, `quantity`) VALUES (NULL, $orderID, $itemID, '1');";
+    if($conn->query($sql_add_appetizer) === TRUE){
+        updateTotalPrice($conn, $orderID);
+        $_SESSION['addedToCartMessage']='app added price:';
+    } else {
+        $_SESSION['addedToCartMessage']='Failed to add appetizer';
+    }
+
     header("Location: menu.php");
 }
 
-//Code to process pizza to cart
+if($_POST['processCategory'] == 2){ //code to process pizza to cart
+    $_SESSION['addedToCartMessage']='pizza added';
+    header("Location: menu.php");
+}
 
 //Code to process kids meal to cart
+if($_POST['processCategory'] == 3){
+    $_SESSION['addedToCartMessage']='kids meal added';
+    header("Location: menu.php");
+}
+//Code to process combo to cart
+if($_POST['processCategory'] == 4){
+    $_SESSION['addedToCartMessage']='combo added';
+    header("Location: menu.php");
+}
+//Code to process drink to cart
+if($_POST['processCategory'] == 5){
+    $_SESSION['addedToCartMessage']='drink added';
+    header("Location: menu.php");
+}
 ?>
 
 	<!-- Main container of page -->
@@ -21,7 +55,6 @@ if($_POST['categoryID'] == 1){
 		<div class="row">
 			<div class="main-view landingPadding">
                 <?php
-                $conn = OpenCon();
 
                 if(isset($_POST['categoryID'])){
                     switch ($_POST['categoryID']){
@@ -58,6 +91,7 @@ if($_POST['categoryID'] == 1){
                                 echo '<button type="submit" class="btn btn-light btn-lg">Confirm</button>'; 
                                 echo '</div>';
                                 echo '<input type="hidden" id="processID" name="processID" value="'. $_POST['itemID'] .'">';
+                                echo '<input type="hidden" id="processCategory" name="processCategory" value="'. $_POST['categoryID'] .'">';
                             echo '</form>';
                             break;
                         case 3:
