@@ -174,3 +174,6 @@ INSERT INTO `order` (`id`, `customer_id`, `fulfilled`, `created_at`, `order_tota
 /* added drink type and size to order_item table */
 
 ALTER TABLE `order_item` ADD `drink_size` VARCHAR(255) NULL DEFAULT NULL AFTER `quantity`, ADD `drink_type` VARCHAR(255) NULL DEFAULT NULL AFTER `drink_size`;
+
+/* Add timestamp to order_item table */
+ALTER TABLE `order_item` ADD `date_created` DATE NOT NULL DEFAULT CURRENT_TIMESTAMP AFTER `drink_type`;
