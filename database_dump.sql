@@ -170,3 +170,7 @@ UPDATE `item` SET `item_description` = '1 slice of cheese pizza and a drink' WHE
 /* Created test order cart id=1 session_id=123 no customer_id*/
 
 INSERT INTO `order` (`id`, `customer_id`, `fulfilled`, `created_at`, `order_total`, `session_id`) VALUES ('1', NULL, '0', current_timestamp(), NULL, '123');
+
+/* added drink type and size to order_item table */
+
+ALTER TABLE `order_item` ADD `drink_size` VARCHAR(255) NULL DEFAULT NULL AFTER `quantity`, ADD `drink_type` VARCHAR(255) NULL DEFAULT NULL AFTER `drink_size`;
