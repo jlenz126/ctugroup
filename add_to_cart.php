@@ -33,9 +33,25 @@ if($_POST['processCategory'] == 2){ //code to process pizza to cart
     header("Location: menu.php");
 }
 
-//Code to process kids meal to cart
 if($_POST['processCategory'] == 3){
-    $_SESSION['addedToCartMessage']='kids meal added';
+    $kidMealID = $_POST['processID'];
+    $kidMealPrice = $_POST['itemPrice'];
+    $kidMealDrink = $_POST['drink'];
+
+    $sql_add_kid_meal = "INSERT INTO `order_item` (`id`, `order_id`, `item_id`, `quantity`, `drink_size`, `drink_type`) VALUES (NULL, $orderID, $kidMealID, '1', NULL, '$kidMealDrink');";
+    if($conn->query($sql_add_kid_meal) === TRUE){
+        $sql_old_total = "SELECT `order_total` FROM `order` WHERE id=$orderID;";
+        $result_old_total = $conn->query($sql_old_total);
+        $old_total = $result_old_total->fetch_row()[0];
+        $new_total = $old_total + $kidMealPrice;
+        $sql_new_total = "UPDATE `order` SET `order_total` = $new_total WHERE `order`.`id` = $orderID;";
+        $conn->query($sql_new_total);
+        $_SESSION['addedToCartMessage']='kids meal id: ' . $kidMealID . ' price ' . $kidMealPrice . ' drink ' . $kidMealDrink;
+    } else {
+        $_SESSION['addedToCartMessage']= "Failed to add kid's meal";
+    }
+
+    
     header("Location: menu.php");
 }
 //Code to process combo to cart
@@ -124,7 +140,7 @@ if(isset($_POST['processCategory']) == 5){
                                     if($result_drinks->num_rows > 0){
                                         while($row = $result_drinks->fetch_assoc()){
                                             $drink_name_display = ucwords(strtolower($row['item_name']));
-                                            echo '<option value="'. $row['id'] .'">'. $drink_name_display .'</option>';
+                                            echo '<option value="'. $row['item_name'] .'">'. $drink_name_display .'</option>';
                                         }
                                     }
                                 echo '</select>';
@@ -132,6 +148,8 @@ if(isset($_POST['processCategory']) == 5){
                             echo '<button type="submit" class="btn btn-light btn-lg">Confirm</button>'; 
                             echo '</div>';
                             echo '<input type="hidden" id="processCategory" name="processCategory" value="'. $_POST['categoryID'] .'">';
+                            echo '<input type="hidden" id="itemPrice" name="itemPrice" value="'. $_POST['itemPrice'] .'">';
+                            echo '<input type="hidden" id="processID" name="processID" value="'. $_POST['itemID'] .'">';
                             echo '</form>';
                             break;
                         case 4:
