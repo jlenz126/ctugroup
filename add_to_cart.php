@@ -5,21 +5,40 @@ include_once 'navbar.php';
 include_once 'db_connection.php';
 $itemID = $_POST['itemID'];
 $conn = OpenCon();
-$orderID = 1; //temporay test variable to add to test order
+$orderID = 1; //temporay test variable to add to test order create function based off of session variable
 
-function updateTotalPrice ($conn, $orderID) {
+function updateTotalPrice ($conn, $orderID, $itemPrice = 0, $addedCharge = 0, $toppingsTotal = 0) {
     $sql_old_total = "SELECT `order_total` FROM `order` WHERE id=$orderID;";
     $result_old_total = $conn->query($sql_old_total);
     $old_total = $result_old_total->fetch_row()[0];
-    $new_total = $old_total + $_POST['itemPrice'];
+    $new_total = $old_total + $itemPrice + $addedCharge + $toppingsTotal;
     $sql_new_total = "UPDATE `order` SET `order_total` = $new_total WHERE `order`.`id` = $orderID;";
     $conn->query($sql_new_total);
+}
+
+function toppingsTotal ($conn, $toppings){
+    if ($toppings == 0){
+        return 0;
+    } else {
+        $toppingsTotal = count($toppings);
+        $sql_toppings = "SELECT topping_name FROM topping WHERE premium_topping=1;";
+        $result_toppings = $conn->query($sql_toppings);
+
+        if($result_toppings->num_rows > 0){
+            while($row = $result_toppings->fetch_assoc()){
+                if(in_array($row['topping_name'], $toppings)){
+                    $toppingsTotal = $toppingsTotal + .5;
+                }
+            }
+        }
+        return $toppingsTotal;
+        }
 }
 
 if($_POST['categoryID'] == 1){
     $sql_add_appetizer = "INSERT INTO `order_item` (`id`, `order_id`, `item_id`, `quantity`) VALUES (NULL, $orderID, $itemID, '1');";
     if($conn->query($sql_add_appetizer) === TRUE){
-        updateTotalPrice($conn, $orderID);
+        updateTotalPrice($conn, $orderID, $_POST['itemPrice']);
         $_SESSION['addedToCartMessage']='app added price:';
     } else {
         $_SESSION['addedToCartMessage']='Failed to add appetizer';
@@ -29,7 +48,10 @@ if($_POST['categoryID'] == 1){
 }
 
 if($_POST['processCategory'] == 2){ //code to process pizza to cart
-    $_SESSION['addedToCartMessage']='pizza added';
+    (isset($_POST['toppings'])) ? $toppings = $_POST['toppings'] : $toppings = 0;
+    $toppingsTotal = toppingsTotal($conn, $toppings);
+
+    $_SESSION['addedToCartMessage']='pizza added with toppings cost ' . $toppingsTotal;
     header("Location: menu.php");
 }
 
@@ -40,12 +62,7 @@ if($_POST['processCategory'] == 3){
 
     $sql_add_kid_meal = "INSERT INTO `order_item` (`id`, `order_id`, `item_id`, `quantity`, `drink_size`, `drink_type`) VALUES (NULL, $orderID, $kidMealID, '1', NULL, '$kidMealDrink');";
     if($conn->query($sql_add_kid_meal) === TRUE){
-        $sql_old_total = "SELECT `order_total` FROM `order` WHERE id=$orderID;";
-        $result_old_total = $conn->query($sql_old_total);
-        $old_total = $result_old_total->fetch_row()[0];
-        $new_total = $old_total + $kidMealPrice;
-        $sql_new_total = "UPDATE `order` SET `order_total` = $new_total WHERE `order`.`id` = $orderID;";
-        $conn->query($sql_new_total);
+        updateTotalPrice($conn, $orderID, $kidMealPrice);
         $_SESSION['addedToCartMessage']='kids meal id: ' . $kidMealID . ' price ' . $kidMealPrice . ' drink ' . $kidMealDrink;
     } else {
         $_SESSION['addedToCartMessage']= "Failed to add kid's meal";
@@ -63,20 +80,14 @@ if($_POST['processCategory'] == 3){
 if(isset($_POST['processCategory']) == 5){
     $drinkID = $_POST['drink'];
     $drinkSize = $_POST['size'];
+    $drinkPrice = $_POST['drinkPrice'];
     $sql_add_drink = "INSERT INTO `order_item` (`id`, `order_id`, `item_id`, `quantity`, `drink_size`, `drink_type`) VALUES (NULL, $orderID, $drinkID, '1', '$drinkSize', NULL);";
 
     if($conn->query($sql_add_drink) === TRUE){
-        $sql_old_total = "SELECT `order_total` FROM `order` WHERE id=$orderID;";
-        $result_old_total = $conn->query($sql_old_total);
-        $old_total = $result_old_total->fetch_row()[0];
-
         if($drinkSize == "2liter"){
-            $new_total = $old_total + 5;
-        } else {
-            $new_total = $old_total + 2;
-        }
-        $sql_new_total = "UPDATE `order` SET `order_total` = $new_total WHERE `order`.`id` = $orderID;";
-        $conn->query($sql_new_total);
+            $drinkPrice = $drinkPrice + 3;
+        } 
+        updateTotalPrice($conn, $orderID, $drinkPrice);
         $_SESSION['addedToCartMessage']='drink added type: '. $_POST['drink'] . " size " . $_POST['size'];
     } else {
         $_SESSION['addedToCartMessage']= "Failed to add drink";
@@ -116,7 +127,7 @@ if(isset($_POST['processCategory']) == 5){
                                         }
 
                                         echo '<div class="form-check">';
-                                            echo '<input class="form-check-input" type="checkbox" name="flexcheck" id="'. $row['topping_name'] .'" value="'. $row['topping_name'] .'" '. $checked .'>';
+                                            echo '<input class="form-check-input" type="checkbox" name="toppings[]" id="'. $row['topping_name'] .'" value="'. $row['topping_name'] .'" '. $checked .'>';
                                             echo '<label class="form-check-label" for="'. $row['topping_name'] .'">';
                                             echo $topping_name_display;
                                             echo '</label>';
@@ -152,7 +163,7 @@ if(isset($_POST['processCategory']) == 5){
                             echo '<input type="hidden" id="processID" name="processID" value="'. $_POST['itemID'] .'">';
                             echo '</form>';
                             break;
-                        case 4:
+                        case 4: //create code for combos
                             echo "combo";
                             break;
                         case 5:
@@ -166,6 +177,7 @@ if(isset($_POST['processCategory']) == 5){
                             echo '</div>';
                             echo '<input type="hidden" id="processCategory" name="processCategory" value="'. $_POST['categoryID'] .'">';
                             echo '<input type="hidden" id="drink" name="drink" value="'. $_POST['itemID'] .'">';
+                            echo '<input type="hidden" id="drinkPrice" name="drinkPrice" value="'. $_POST['itemPrice'] .'">';
                             echo '</form>';
                             break;
                         default:
