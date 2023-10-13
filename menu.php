@@ -15,6 +15,10 @@ $conn = OpenCon();
         $uppercase_words = array("A","And","Or","Of","Og","With");
         $lowercase_words = array("a","and","or","of","OG","with");
 
+        if(isset($_SESSION['addedToCartMessage'])){
+          echo $_SESSION['addedToCartMessage'];
+          unset($_SESSION['addedToCartMessage']);
+        }
         echo '<div class="accordion accordion-flush" id="MenuAccordion">';
         if($result_categories->num_rows > 0) {
           while($row = $result_categories->fetch_assoc()){
