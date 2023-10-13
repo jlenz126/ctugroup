@@ -166,3 +166,7 @@ UPDATE `item` SET `default_topping` = 'italian sausage,pepperoni,onion,olives,sp
 UPDATE `item` SET `default_topping` = 'chicken,bacon,spinach' WHERE `item`.`id` = 14;
 UPDATE `item` SET `default_topping` = 'mozzarella,parmesan,cheddar cheese' WHERE `item`.`id` = 15;
 UPDATE `item` SET `item_description` = '1 slice of cheese pizza and a drink' WHERE `item`.`id` = 7;
+
+/* Created test order cart id=1 session_id=123 no customer_id*/
+
+INSERT INTO `order` (`id`, `customer_id`, `fulfilled`, `created_at`, `order_total`, `session_id`) VALUES ('1', NULL, '0', current_timestamp(), NULL, '123');
