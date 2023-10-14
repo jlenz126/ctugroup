@@ -8,7 +8,7 @@ $itemID = $_POST['itemID'];
 $conn = OpenCon();
 $process = 0;
 
-if(!isset($_SESSION['currentOrderID'])){ //Creates session variable for a user without a current order or creates a guest cart
+if(!isset($_SESSION['currentOrderID'])){ //Creates session variable for a user without a current order or creates a guest order
     createOrder($conn);
 }
 
