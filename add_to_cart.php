@@ -196,7 +196,22 @@ if(isset($_POST['processCategory']) == 5){
                             echo '</form>';
                             break;
                         case 4: //create code for combos
-                            echo "combo";
+                            switch ($_POST['itemID']){
+                                case 16: //combo 1: 1 slice pizza and 1 small drink
+                                    echo "16";
+                                    break;
+                                case 17: //combo 2: 1 small pizza, 1 large drink, 1 appetizer
+                                    echo "17"
+                                    break;
+                                case 18: //combo 3: 1 medium pizza, 1 large drink, 1 appetizer
+                                    echo "18";
+                                    break;
+                                case 19: //combo 4: 1 large pizza, 2 large drinks, 2 appetizers
+                                    echo "19";
+                                    break;
+                                default:
+                                    echo "combo error"; //change to session message error
+                            }
                             break;
                         case 5:
                             echo '<form method="post" action="add_to_cart.php">';
@@ -213,7 +228,7 @@ if(isset($_POST['processCategory']) == 5){
                             echo '</form>';
                             break;
                         default:
-                            echo "default";
+                            echo "default"; //change to session error message
                     }
                 }
                 ?>
