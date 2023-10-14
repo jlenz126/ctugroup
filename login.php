@@ -37,22 +37,18 @@ include_once 'navbar.php';
                     <label for="password">Password:</label>
                     <input type="password" id="password" name="password" required class="form-control">
                 </div>
-                <div class="form-button">
+                <div class="form-button text-center">
                     <input type="submit" value="Login" class="btn btn-light btn-lg">
 					<input type="reset" value="Clear" class="btn btn-light btn-lg">
                 </div>
+				<div class="form-button text-center">
+					<a class="btn btn-light btn-lg" href="create_account.php" role="button">Create an Account</a>
+				</div>
             </form>
-
-            <!-- Link to create a new account -->
-            <div class="register-link">
-                <p>Don't have an account? <a href="register.php">Create one now</a>.</p>
-            </div>
-
         </div>
     </div>
 </div>
 <!-- End main container -->
-
 <?php
 include_once 'footer.php';
 ?>
