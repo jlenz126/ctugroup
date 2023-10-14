@@ -21,18 +21,51 @@ function toppingsTotal ($conn, $toppings){
         return 0;
     } else {
         $toppingsTotal = count($toppings);
-        $sql_toppings = "SELECT topping_name FROM topping WHERE premium_topping=1;";
+        $sql_toppings = "SELECT id FROM topping WHERE premium_topping=1;";
         $result_toppings = $conn->query($sql_toppings);
 
         if($result_toppings->num_rows > 0){
             while($row = $result_toppings->fetch_assoc()){
-                if(in_array($row['topping_name'], $toppings)){
+                if(in_array($row['id'], $toppings)){
                     $toppingsTotal = $toppingsTotal + .5;
                 }
             }
         }
         return $toppingsTotal;
         }
+}
+
+function pizzaPrice($size){
+    switch ($size){
+        case 'medium':
+            return 12;
+        case 'large':
+            return 14;
+        default:
+            return 10;
+    }
+}
+
+function addPizzaToOrder ($conn, $orderID, $pizzaID, $toppings){
+    $sql_add_pizza = "INSERT INTO `order_item` (`id`, `order_id`, `item_id`, `quantity`, `drink_size`, `drink_type`) VALUES (NULL, $orderID, $pizzaID, '1', NULL, NULL);";
+    if($conn->query($sql_add_pizza) === TRUE){
+        $_SESSION['addedToCartMessage']='pizza added';
+    } else {
+        $_SESSION['addedToCartMessage']='Failed to add pizza';
+    }
+    if($toppings != 0){
+        $sql_get_order_ID = "SELECT `id` FROM `order_item` WHERE `item_id` = $pizzaID and `order_id` = $orderID ORDER BY `created_at` DESC LIMIT 1;";
+        $result_order_id = $conn->query($sql_get_order_ID);
+        $orderKey = $result_order_id->fetch_row()[0];
+        foreach ($toppings as $value){
+            $sql_add_topping = "INSERT INTO `order_topping` (`id`, `topping_id`, `order_id`, `orderitem_id`) VALUES (NULL, $value, $orderID, $orderKey);";
+            if($conn->query($sql_add_topping) === TRUE){
+                $_SESSION['addedToCartMessage']= $_SESSION['addedToCartMessage'] . ' toppings added';
+            } else {
+                $_SESSION['addedToCartMessage'] = $_SESSION['addedToCartMessage'] . ' Failed to add toppings';
+            }
+        }
+    }
 }
 
 if($_POST['categoryID'] == 1){
@@ -49,9 +82,15 @@ if($_POST['categoryID'] == 1){
 
 if($_POST['processCategory'] == 2){ //code to process pizza to cart
     (isset($_POST['toppings'])) ? $toppings = $_POST['toppings'] : $toppings = 0;
+    $pizzaID = $_POST['processID'];
     $toppingsTotal = toppingsTotal($conn, $toppings);
+    $pizzaString = $_POST['size'];
+    $pizzaBasePrice = pizzaPrice($pizzaString);
+    addPizzaToOrder($conn, $orderID, $pizzaID, $toppings); 
+    updateTotalPrice($conn, $orderID, $pizzaBasePrice, 0, $toppingsTotal);
+    
 
-    $_SESSION['addedToCartMessage']='pizza added with toppings cost ' . $toppingsTotal;
+
     header("Location: menu.php");
 }
 
@@ -127,8 +166,8 @@ if(isset($_POST['processCategory']) == 5){
                                         }
 
                                         echo '<div class="form-check">';
-                                            echo '<input class="form-check-input" type="checkbox" name="toppings[]" id="'. $row['topping_name'] .'" value="'. $row['topping_name'] .'" '. $checked .'>';
-                                            echo '<label class="form-check-label" for="'. $row['topping_name'] .'">';
+                                            echo '<input class="form-check-input" type="checkbox" name="toppings[]" id="'. $row['id'] .'" value="'. $row['id'] .'" '. $checked .'>';
+                                            echo '<label class="form-check-label" for="'. $row['id'] .'">';
                                             echo $topping_name_display;
                                             echo '</label>';
                                         echo '</div>';
