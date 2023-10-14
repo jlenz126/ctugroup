@@ -15,17 +15,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($username) || empty($password)) {
         $message = "All fields are required!";
     } else {
-        // Fetch the user from the database using the provided username
-        $sql_get_password = "SELECT `password` FROM `user` WHERE username = '$username'";
-        $result_get_password = $conn->query($sql_get_password);
-        $result_password_string = $result_get_password->fetch_row()[0];
+        $sql_get_id_password = $conn->prepare("SELECT `id`,`password` FROM `user` WHERE username = ?");
+        $sql_get_id_password->bind_param("s", $username);
+        $sql_get_id_password->execute();
+        $result = $sql_get_id_password->get_result();
+        $row = $result->fetch_assoc();
 
-        if(password_verify($password, $result_password_string)){
-            $sql_get_ID = "SELECT `id` FROM `user` WHERE username = '$username'";
-            $result_get_ID = $conn->query($sql_get_ID);
-            $userID = $result_get_ID->fetch_row()[0];
+
+        if(password_verify($password, $row['password'])){
             
-            $_SESSION['user_id'] = $userID;
+            $_SESSION['user_id'] = $row['id'];
             $_SESSION['username'] = $username;
 
             // Redirect to a dashboard or main page, for example
