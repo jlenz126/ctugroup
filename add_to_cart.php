@@ -105,10 +105,10 @@ if($_POST['processCategory'] == 3){
     header("Location: menu.php");
 }
 //Code to process combo to cart
-// if($_POST['processCategory'] == 4){
-//     $_SESSION['addedToCartMessage']='combo added';
-//     header("Location: menu.php");
-// }
+if($_POST['processCategory'] == 4){
+    $_SESSION['addedToCartMessage']='combo added';
+    header("Location: menu.php");
+}
 
 if(isset($_POST['processCategory']) == 5){
     $drinkID = $_POST['drink'];
@@ -201,7 +201,7 @@ if(isset($_POST['processCategory']) == 5){
                                     echo "16";
                                     break;
                                 case 17: //combo 2: 1 small pizza, 1 large drink, 1 appetizer
-                                    echo "17"
+                                    echo "17";
                                     break;
                                 case 18: //combo 3: 1 medium pizza, 1 large drink, 1 appetizer
                                     echo "18";
