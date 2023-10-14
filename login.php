@@ -38,7 +38,8 @@ include_once 'navbar.php';
                     <input type="password" id="password" name="password" required class="form-control">
                 </div>
                 <div class="form-button">
-                    <input type="submit" value="Login" class="btn btn-primary">
+                    <input type="submit" value="Login" class="btn btn-light btn-lg">
+					<input type="reset" value="Clear" class="btn btn-light btn-lg">
                 </div>
             </form>
 
