@@ -2,6 +2,7 @@
 
 include_once 'session.php';
 include_once 'db_connection.php'; // Includes database connection details
+$conn = OpenCon();
 
 // Initialize a variable to store error/success messages
 $message = '';
@@ -15,16 +16,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $message = "All fields are required!";
     } else {
         // Fetch the user from the database using the provided username
-        $stmt = $conn->prepare("SELECT * FROM users WHERE username = ?");
-        $stmt->bind_param("s", $username);
-        $stmt->execute();
-        $user = $stmt->get_result()->fetch_assoc();
+        $sql_get_password = "SELECT `password` FROM `user` WHERE username = '$username'";
+        $result_get_password = $conn->query($sql_get_password);
+        $result_password_string = $result_get_password->fetch_row()[0];
 
-        // If user exists and password matches
-        if ($user && password_verify($password, $user['password'])) {
-            // Store user data in the session
-            $_SESSION['user_id'] = $user['id'];
-            $_SESSION['username'] = $user['username'];
+        if(password_verify($password, $result_password_string)){
+            $sql_get_ID = "SELECT `id` FROM `user` WHERE username = '$username'";
+            $result_get_ID = $conn->query($sql_get_ID);
+            $userID = $result_get_ID->fetch_row()[0];
+            
+            $_SESSION['user_id'] = $userID;
+            $_SESSION['username'] = $username;
 
             // Redirect to a dashboard or main page, for example
             header('Location: index.php');
