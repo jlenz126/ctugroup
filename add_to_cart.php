@@ -76,11 +76,10 @@ if($_POST['categoryID'] == 1){
     } else {
         $_SESSION['addedToCartMessage']='Failed to add appetizer';
     }
-
     header("Location: menu.php");
 }
 
-if($_POST['processCategory'] == 2){ //code to process pizza to cart
+if($_POST['processCategory'] == 2){ 
     (isset($_POST['toppings'])) ? $toppings = $_POST['toppings'] : $toppings = 0;
     $pizzaID = $_POST['processID'];
     $toppingsTotal = toppingsTotal($conn, $toppings);
@@ -88,9 +87,6 @@ if($_POST['processCategory'] == 2){ //code to process pizza to cart
     $pizzaBasePrice = pizzaPrice($pizzaString);
     addPizzaToOrder($conn, $orderID, $pizzaID, $toppings); 
     updateTotalPrice($conn, $orderID, $pizzaBasePrice, 0, $toppingsTotal);
-    
-
-
     header("Location: menu.php");
 }
 
@@ -106,8 +102,6 @@ if($_POST['processCategory'] == 3){
     } else {
         $_SESSION['addedToCartMessage']= "Failed to add kid's meal";
     }
-
-    
     header("Location: menu.php");
 }
 //Code to process combo to cart
@@ -135,7 +129,6 @@ if(isset($_POST['processCategory']) == 5){
     header("Location: menu.php");
 }
 ?>
-
 	<!-- Main container of page -->
 	<div class="container-fluid">
 		<div class="row">
@@ -224,13 +217,10 @@ if(isset($_POST['processCategory']) == 5){
                     }
                 }
                 ?>
-
 			</div>
 		</div>
 	</div>
 	<!-- End main container -->
-
-
 <?php
 CloseCon($conn);
 include_once 'footer.php';
