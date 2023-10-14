@@ -125,7 +125,7 @@ if($process == 4){
             $sql_add_combo1 = "INSERT INTO `order_item` (`id`, `order_id`, `item_id`, `quantity`, `drink_size`, `drink_type`, `pizza_type`) VALUES (NULL, $orderID, $comboID, '1', NULL, '$drinkType', '$pizzaType');";
             if($conn->query($sql_add_combo1) === TRUE){
                 updateTotalPrice($conn, $orderID, $comboPrice);
-                $_SESSION['addedToCartMessage']='combo added ' . $pizzaType . $drinkType;
+                $_SESSION['addedToCartMessage']='combo added 1 ' . $pizzaType . $drinkType;
             } else {
                 $_SESSION['addedToCartMessage']= "Failed to add combo meal";
             }
@@ -138,17 +138,39 @@ if($process == 4){
             $sql_add_combo2 = "INSERT INTO `order_item` (`id`, `order_id`, `item_id`, `quantity`, `drink_size`, `drink_type`, `pizza_type`, `appetizer_type`) VALUES (NULL, $orderID, $comboID, '1', NULL, '$drinkType', '$pizzaType', '$appetizerType');";
             if($conn->query($sql_add_combo2) === TRUE){
                 updateTotalPrice($conn, $orderID, $comboPrice);
-                $_SESSION['addedToCartMessage']='combo added ' . $pizzaType . $drinkType;
+                $_SESSION['addedToCartMessage']='combo added 2 ' . $pizzaType . $drinkType;
             } else {
                 $_SESSION['addedToCartMessage']= "Failed to add combo meal";
             }
             header("Location: menu.php");
             break;
-        case 18: //combo 3: 1 medium pizza, 1 large drink, 1 appetizer
-            echo "18";
+        case 18:
+            $appetizerType = $_POST['appetizerType'];
+            $sql_add_combo3 = "INSERT INTO `order_item` (`id`, `order_id`, `item_id`, `quantity`, `drink_size`, `drink_type`, `pizza_type`, `appetizer_type`) VALUES (NULL, $orderID, $comboID, '1', NULL, '$drinkType', '$pizzaType', '$appetizerType');";
+            if($conn->query($sql_add_combo3) === TRUE){
+                updateTotalPrice($conn, $orderID, $comboPrice);
+                $_SESSION['addedToCartMessage']='combo added 3 ' . $pizzaType . $drinkType;
+            } else {
+                $_SESSION['addedToCartMessage']= "Failed to add combo meal";
+            }
+            header("Location: menu.php");
             break;
-        case 19: //combo 4: 1 large pizza, 2 large drinks, 2 appetizers
-            echo "19";
+        case 19:
+            $appetizerType = $_POST['appetizerType'];
+            $appetizerType2 = $_POST['appetizerType2'];
+            $drinkType2 = $_POST['drink2'];
+
+            $appetizerCombined = $appetizerType . "," . $appetizerType2;
+            $drinkCombined = $drinkType . "," . $drinkType2;
+
+            $sql_add_combo3 = "INSERT INTO `order_item` (`id`, `order_id`, `item_id`, `quantity`, `drink_size`, `drink_type`, `pizza_type`, `appetizer_type`) VALUES (NULL, $orderID, $comboID, '1', NULL, '$drinkCombined', '$pizzaType', '$appetizerCombined');";
+            if($conn->query($sql_add_combo3) === TRUE){
+                updateTotalPrice($conn, $orderID, $comboPrice);
+                $_SESSION['addedToCartMessage']='combo added 4 ' . $pizzaType . $drinkCombined;
+            } else {
+                $_SESSION['addedToCartMessage']= "Failed to add combo meal";
+            }
+            header("Location: menu.php");
             break;
         default:
             echo "combo error"; //change to session message error
@@ -323,10 +345,112 @@ if($process == 5){
                                     echo '</form>';
                                     break;
                                 case 18: //combo 3: 1 medium pizza, 1 large drink, 1 appetizer
-                                    echo "18";
+                                    $sql_pizza_types = "SELECT id, item_name FROM item WHERE category_id = 2;";
+                                    $result_pizza_type = $conn->query($sql_pizza_types);
+                                    $sql_drinks = "SELECT id, item_name FROM item WHERE category_id = 5";
+                                    $result_drinks = $conn->query($sql_drinks);
+                                    $sql_appetizer_types = "SELECT id, item_name FROM item WHERE category_id = 1;";
+                                    $result_appetizer_types = $conn->query($sql_appetizer_types);
+
+                                    echo '<form method="post" action="add_to_cart.php">';
+                                        echo '<select id="pizza-select" class="form-select form-select-lg mb-3" aria-label="Large select example" name="pizzaType">';
+                                        echo '<option></option>';
+                                            if($result_pizza_type->num_rows > 0){
+                                                while($row = $result_pizza_type->fetch_assoc()){
+                                                    $pizza_name_display = ucwords(strtolower($row['item_name']));
+                                                    echo '<option value="'. $row['item_name'] .'">'. $pizza_name_display .'</option>';
+                                                }
+                                            }
+                                        echo '</select>';
+                                        echo '<select id="drink-select" class="form-select form-select-lg mb-3" aria-label="Large select example" name="drink">';
+                                        echo '<option></option>';
+                                            if($result_drinks->num_rows > 0){
+                                                while($row = $result_drinks->fetch_assoc()){
+                                                    $drink_name_display = ucwords(strtolower($row['item_name']));
+                                                    echo '<option value="'. $row['item_name'] .'">'. $drink_name_display .'</option>';
+                                                }
+                                            }
+                                        echo '</select>';
+                                        echo '<select id="drink-select" class="form-select form-select-lg mb-3" aria-label="Large select example" name="appetizerType">';
+                                        echo '<option></option>';
+                                            if($result_appetizer_types->num_rows > 0){
+                                                while($row = $result_appetizer_types->fetch_assoc()){
+                                                    $appetizer_name_display = ucwords(strtolower($row['item_name']));
+                                                    echo '<option value="'. $row['item_name'] .'">'. $appetizer_name_display .'</option>';
+                                                }
+                                            }
+                                        echo '</select>';
+                                    echo '<div class="text-center">';
+                                    echo '<button type="submit" class="btn btn-light btn-lg">Confirm</button>'; 
+                                    echo '</div>';
+                                    echo '<input type="hidden" id="processCategory" name="processCategory" value="'. $_POST['categoryID'] .'">';
+                                    echo '<input type="hidden" id="itemPrice" name="itemPrice" value="'. $_POST['itemPrice'] .'">';
+                                    echo '<input type="hidden" id="processID" name="processID" value="'. $_POST['itemID'] .'">';
+                                    echo '</form>';
                                     break;
                                 case 19: //combo 4: 1 large pizza, 2 large drinks, 2 appetizers
-                                    echo "19";
+                                    $sql_pizza_types = "SELECT id, item_name FROM item WHERE category_id = 2;";
+                                    $result_pizza_type = $conn->query($sql_pizza_types);
+                                    $sql_drinks = "SELECT id, item_name FROM item WHERE category_id = 5";
+                                    $result_drinks = $conn->query($sql_drinks);
+                                    $result_drinks_2 = $conn->query($sql_drinks);
+                                    $sql_appetizer_types = "SELECT id, item_name FROM item WHERE category_id = 1;";
+                                    $result_appetizer_types = $conn->query($sql_appetizer_types);
+                                    $result_appetizer_types_2 = $conn->query($sql_appetizer_types);
+
+                                    echo '<form method="post" action="add_to_cart.php">';
+                                        echo '<select id="pizza-select" class="form-select form-select-lg mb-3" aria-label="Large select example" name="pizzaType">';
+                                        echo '<option></option>';
+                                            if($result_pizza_type->num_rows > 0){
+                                                while($row = $result_pizza_type->fetch_assoc()){
+                                                    $pizza_name_display = ucwords(strtolower($row['item_name']));
+                                                    echo '<option value="'. $row['item_name'] .'">'. $pizza_name_display .'</option>';
+                                                }
+                                            }
+                                        echo '</select>';
+                                        echo '<select id="drink-select" class="form-select form-select-lg mb-3" aria-label="Large select example" name="drink">';
+                                        echo '<option></option>';
+                                            if($result_drinks->num_rows > 0){
+                                                while($row = $result_drinks->fetch_assoc()){
+                                                    $drink_name_display = ucwords(strtolower($row['item_name']));
+                                                    echo '<option value="'. $row['item_name'] .'">'. $drink_name_display .'</option>';
+                                                }
+                                            }
+                                        echo '</select>';
+                                        echo '<select id="drink-select" class="form-select form-select-lg mb-3" aria-label="Large select example" name="drink2">';
+                                        echo '<option></option>';
+                                            if($result_drinks_2->num_rows > 0){
+                                                while($row = $result_drinks_2->fetch_assoc()){
+                                                    $drink_name_display = ucwords(strtolower($row['item_name']));
+                                                    echo '<option value="'. $row['item_name'] .'">'. $drink_name_display .'</option>';
+                                                }
+                                            }
+                                        echo '</select>';
+                                        echo '<select id="drink-select" class="form-select form-select-lg mb-3" aria-label="Large select example" name="appetizerType">';
+                                        echo '<option></option>';
+                                            if($result_appetizer_types->num_rows > 0){
+                                                while($row = $result_appetizer_types->fetch_assoc()){
+                                                    $appetizer_name_display = ucwords(strtolower($row['item_name']));
+                                                    echo '<option value="'. $row['item_name'] .'">'. $appetizer_name_display .'</option>';
+                                                }
+                                            }
+                                        echo '</select>';
+                                        echo '<select id="drink-select" class="form-select form-select-lg mb-3" aria-label="Large select example" name="appetizerType2">';
+                                        echo '<option></option>';
+                                            if($result_appetizer_types_2->num_rows > 0){
+                                                while($row = $result_appetizer_types_2->fetch_assoc()){
+                                                    $appetizer_name_display = ucwords(strtolower($row['item_name']));
+                                                    echo '<option value="'. $row['item_name'] .'">'. $appetizer_name_display .'</option>';
+                                                }
+                                            }
+                                        echo '</select>';
+                                    echo '<div class="text-center">';
+                                    echo '<button type="submit" class="btn btn-light btn-lg">Confirm</button>'; 
+                                    echo '</div>';
+                                    echo '<input type="hidden" id="processCategory" name="processCategory" value="'. $_POST['categoryID'] .'">';
+                                    echo '<input type="hidden" id="itemPrice" name="itemPrice" value="'. $_POST['itemPrice'] .'">';
+                                    echo '<input type="hidden" id="processID" name="processID" value="'. $_POST['itemID'] .'">';
+                                    echo '</form>';
                                     break;
                                 default:
                                     echo "combo error"; //change to session message error
