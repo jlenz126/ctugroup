@@ -62,7 +62,8 @@ CREATE TABLE `order_item` (
   `id` integer PRIMARY KEY AUTO_INCREMENT,
   `order_id` bigint,
   `item_id` integer,
-  `quantity` integer NOT NULL DEFAULT 1
+  `quantity` integer NOT NULL DEFAULT 1,
+  `created_at` timestamp
 );
 
 CREATE TABLE `order_topping` (
@@ -174,6 +175,4 @@ INSERT INTO `order` (`id`, `customer_id`, `fulfilled`, `created_at`, `order_tota
 /* added drink type and size to order_item table */
 
 ALTER TABLE `order_item` ADD `drink_size` VARCHAR(255) NULL DEFAULT NULL AFTER `quantity`, ADD `drink_type` VARCHAR(255) NULL DEFAULT NULL AFTER `drink_size`;
-
-/* Add timestamp to order_item table */
-ALTER TABLE `order_item` ADD `date_created` DATE NOT NULL DEFAULT CURRENT_TIMESTAMP AFTER `drink_type`;
+UPDATE `item` SET `default_topping` = 'mozzarella cheese,parmesan cheese,cheddar cheese' WHERE `item`.`id` = 15;
