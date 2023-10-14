@@ -3,10 +3,16 @@ include_once 'session.php';
 include_once 'header.php';
 include_once 'navbar.php';
 include_once 'db_connection.php';
+include_once 'current_order.php';
 $itemID = $_POST['itemID'];
 $conn = OpenCon();
 $process = 0;
-$orderID = 1; //temporay test variable to add to test order create function based off of session variable
+
+if(!isset($_SESSION['currentOrderID'])){ //Creates session variable for a user without a current order or creates a guest cart
+    createOrder($conn);
+}
+
+$orderID = $_SESSION['currentOrderID']; 
 
 if(isset($_POST['processCategory'])){
     $process = $_POST['processCategory'];
