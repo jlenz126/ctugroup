@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <h2>Registration</h2>
             <p class="text-danger"><?= $message; ?></p>
 
-            <form action="register.php" method="POST" class="mt-3">
+            <form action="create_account.php" method="POST" class="mt-3">
                 <fieldset>
                     <legend>User Information</legend>
                     <div class="mb-3">
