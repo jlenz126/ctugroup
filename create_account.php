@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $stmtAddress->bind_param("issssi", $userId, $line1, $line2, $city, $country, $zipcode);
 
             if ($stmtAddress->execute()) {
-                $message = "Registration successful!";
+                $message = "Registration successful! <a href='login.php'>Click here to proceed to the login page.</a>"; // Informing the user to proceed to the login page
             } else {
                 $message = "Error occurred during registration!";
             }
