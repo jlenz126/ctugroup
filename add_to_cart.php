@@ -21,14 +21,22 @@ if(isset($_POST['categoryID']) && ($_POST['categoryID'] == 1)){
     $process = 1;
 }
 
-function updateTotalPrice ($conn, $orderID, $itemPrice = 0, $addedCharge = 0, $toppingsTotal = 0) {
+function updateTotalPrice ($conn, $orderID, $item_ID, $itemPrice = 0, $addedCharge = 0, $toppingsTotal = 0) {
     $sql_old_total = "SELECT `order_total` FROM `order` WHERE id=$orderID;";
     $result_old_total = $conn->query($sql_old_total);
     $old_total = $result_old_total->fetch_row()[0];
     $new_total = $old_total + $itemPrice + $addedCharge + $toppingsTotal;
     $sql_new_total = "UPDATE `order` SET `order_total` = $new_total WHERE `order`.`id` = $orderID;";
     $conn->query($sql_new_total);
+    $item_total = (float)$itemPrice + $addedCharge + $toppingsTotal;
+    $_SESSION['itemTotal'] = $item_total;
+    $item_ID_converted = (int)$item_ID;
+    $_SESSION['itemid'] = $item_total;
+    $sql_update_item_price = "UPDATE `order_item` SET `item_price` = $item_total WHERE `order_item`.`id` = $item_ID_converted;";
+    $conn->query($sql_update_item_price);
 }
+
+
 
 function toppingsTotal ($conn, $toppings){
     if ($toppings == 0){
@@ -82,10 +90,18 @@ function addPizzaToOrder ($conn, $orderID, $pizzaID, $toppings){
     }
 }
 
+function getItemID ($conn, $orderID, $itemID){
+    $sql_get_item_ID = "SELECT `id` FROM `order_item` WHERE `item_id` = $itemID and `order_id` = $orderID ORDER BY `created_at` DESC LIMIT 1;";
+    $result_order_id = $conn->query($sql_get_item_ID);
+    $itemKey = (int)$result_order_id->fetch_row()[0];
+    return $itemKey;
+}
+
 if($process == 1){
     $sql_add_appetizer = "INSERT INTO `order_item` (`id`, `order_id`, `item_id`, `quantity`) VALUES (NULL, $orderID, $itemID, '1');";
     if($conn->query($sql_add_appetizer) === TRUE){
-        updateTotalPrice($conn, $orderID, $_POST['itemPrice']);
+        $item_ID = getItemID($conn, $orderID, $itemID);
+        updateTotalPrice($conn, $orderID, $item_ID, $_POST['itemPrice']);
         $_SESSION['addedToCartMessage']='app added price:';
     } else {
         $_SESSION['addedToCartMessage']='Failed to add appetizer';
@@ -99,8 +115,9 @@ if($process == 2){
     $toppingsTotal = toppingsTotal($conn, $toppings);
     $pizzaString = $_POST['size'];
     $pizzaBasePrice = pizzaPrice($pizzaString);
-    addPizzaToOrder($conn, $orderID, $pizzaID, $toppings); 
-    updateTotalPrice($conn, $orderID, $pizzaBasePrice, 0, $toppingsTotal);
+    addPizzaToOrder($conn, $orderID, $pizzaID, $toppings);
+    $item_ID = getItemID($conn, $orderID, $pizzaID);
+    updateTotalPrice($conn, $orderID, $item_ID, $pizzaBasePrice, 0, $toppingsTotal);
     header("Location: menu.php");
 }
 
@@ -111,7 +128,8 @@ if($process == 3){
 
     $sql_add_kid_meal = "INSERT INTO `order_item` (`id`, `order_id`, `item_id`, `quantity`, `drink_size`, `drink_type`) VALUES (NULL, $orderID, $kidMealID, '1', NULL, '$kidMealDrink');";
     if($conn->query($sql_add_kid_meal) === TRUE){
-        updateTotalPrice($conn, $orderID, $kidMealPrice);
+        $item_ID = getItemID($conn, $orderID, $kidMealID);
+        updateTotalPrice($conn, $orderID, $item_ID, $kidMealPrice);
         $_SESSION['addedToCartMessage']='kids meal id: ' . $kidMealID . ' price ' . $kidMealPrice . ' drink ' . $kidMealDrink;
     } else {
         $_SESSION['addedToCartMessage']= "Failed to add kid's meal";
@@ -130,7 +148,8 @@ if($process == 4){
             
             $sql_add_combo1 = "INSERT INTO `order_item` (`id`, `order_id`, `item_id`, `quantity`, `drink_size`, `drink_type`, `pizza_type`) VALUES (NULL, $orderID, $comboID, '1', NULL, '$drinkType', '$pizzaType');";
             if($conn->query($sql_add_combo1) === TRUE){
-                updateTotalPrice($conn, $orderID, $comboPrice);
+                $item_ID = getItemID($conn, $orderID, $comboID);
+                updateTotalPrice($conn, $orderID, $item_ID, $comboPrice);
                 $_SESSION['addedToCartMessage']='combo added 1 ' . $pizzaType . $drinkType;
             } else {
                 $_SESSION['addedToCartMessage']= "Failed to add combo meal";
@@ -143,7 +162,8 @@ if($process == 4){
             $appetizerType = $_POST['appetizerType'];
             $sql_add_combo2 = "INSERT INTO `order_item` (`id`, `order_id`, `item_id`, `quantity`, `drink_size`, `drink_type`, `pizza_type`, `appetizer_type`) VALUES (NULL, $orderID, $comboID, '1', NULL, '$drinkType', '$pizzaType', '$appetizerType');";
             if($conn->query($sql_add_combo2) === TRUE){
-                updateTotalPrice($conn, $orderID, $comboPrice);
+                $item_ID = getItemID($conn, $orderID, $comboID);
+                updateTotalPrice($conn, $orderID, $item_ID, $comboPrice);
                 $_SESSION['addedToCartMessage']='combo added 2 ' . $pizzaType . $drinkType;
             } else {
                 $_SESSION['addedToCartMessage']= "Failed to add combo meal";
@@ -154,7 +174,8 @@ if($process == 4){
             $appetizerType = $_POST['appetizerType'];
             $sql_add_combo3 = "INSERT INTO `order_item` (`id`, `order_id`, `item_id`, `quantity`, `drink_size`, `drink_type`, `pizza_type`, `appetizer_type`) VALUES (NULL, $orderID, $comboID, '1', NULL, '$drinkType', '$pizzaType', '$appetizerType');";
             if($conn->query($sql_add_combo3) === TRUE){
-                updateTotalPrice($conn, $orderID, $comboPrice);
+                $item_ID = getItemID($conn, $orderID, $comboID);
+                updateTotalPrice($conn, $orderID, $item_ID, $comboPrice);
                 $_SESSION['addedToCartMessage']='combo added 3 ' . $pizzaType . $drinkType;
             } else {
                 $_SESSION['addedToCartMessage']= "Failed to add combo meal";
@@ -171,7 +192,8 @@ if($process == 4){
 
             $sql_add_combo3 = "INSERT INTO `order_item` (`id`, `order_id`, `item_id`, `quantity`, `drink_size`, `drink_type`, `pizza_type`, `appetizer_type`) VALUES (NULL, $orderID, $comboID, '1', NULL, '$drinkCombined', '$pizzaType', '$appetizerCombined');";
             if($conn->query($sql_add_combo3) === TRUE){
-                updateTotalPrice($conn, $orderID, $comboPrice);
+                $item_ID = getItemID($conn, $orderID, $comboID);
+                updateTotalPrice($conn, $orderID, $item_ID, $comboPrice);
                 $_SESSION['addedToCartMessage']='combo added 4 ' . $pizzaType . $drinkCombined;
             } else {
                 $_SESSION['addedToCartMessage']= "Failed to add combo meal";
@@ -196,7 +218,8 @@ if($process == 5){
         if($drinkSize == "2liter"){
             $drinkPrice = $drinkPrice + 3;
         } 
-        updateTotalPrice($conn, $orderID, $drinkPrice);
+        $item_ID = getItemID($conn, $orderID, $drinkID);
+        updateTotalPrice($conn, $orderID, $item_ID, $drinkPrice);
         $_SESSION['addedToCartMessage']='drink added type: '. $_POST['drink'] . " size " . $_POST['size'];
     } else {
         $_SESSION['addedToCartMessage']= "Failed to add drink";
