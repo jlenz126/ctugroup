@@ -27,7 +27,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($result->num_rows > 0) {
         // Username already exists
-        $message = "Username is already taken!";
+        $message = "<span style='font-size: 1.5em; color: white;'>Username is already taken!</span>";
     } else {
         // If validation is successful:
         $hashed_password = password_hash($password, PASSWORD_BCRYPT);
@@ -41,7 +41,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $stmtAddress->bind_param("issssi", $userId, $line1, $line2, $city, $country, $zipcode);
 
             if ($stmtAddress->execute()) {
-                $message = "Registration successful! <a href='login.php'>Click here to proceed to the login page.</a>"; // Informing the user to proceed to the login page
+                $message = "<span style='font-size: 1.5em; color: white;'>Registration successful! <a href='login.php'>Click here to login.</a></span>"; // Informing the user to proceed to the login page
             } else {
                 $message = "Error occurred during registration!";
             }
