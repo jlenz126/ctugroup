@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $message = "All fields are required!";
     } else {
         // Fetch the user from the database using the provided username
-        $stmt = $conn->prepare("SELECT * FROM users WHERE username = ?");
+        $stmt = $conn->prepare("SELECT * FROM user WHERE username = ?"); // Changed table name to 'user'
         $stmt->bind_param("s", $username);
         $stmt->execute();
         $user = $stmt->get_result()->fetch_assoc();
