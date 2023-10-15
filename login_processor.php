@@ -3,6 +3,7 @@
 include_once 'session.php';
 include_once 'db_connection.php'; // Includes database connection details
 
+
 // Initialize a variable to store error/success messages
 $message = '';
 
@@ -14,17 +15,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($username) || empty($password)) {
         $message = "All fields are required!";
     } else {
-        // Fetch the user from the database using the provided username
-        $stmt = $conn->prepare("SELECT * FROM user WHERE username = ?"); // Changed table name to 'user'
-        $stmt->bind_param("s", $username);
-        $stmt->execute();
-        $user = $stmt->get_result()->fetch_assoc();
+        $sql_get_id_password = $conn->prepare("SELECT `id`,`password` FROM `user` WHERE username = ?");
+        $sql_get_id_password->bind_param("s", $username);
+        $sql_get_id_password->execute();
+        $result = $sql_get_id_password->get_result();
+        $row = $result->fetch_assoc();
 
-        // If user exists and password matches
-        if ($user && password_verify($password, $user['password'])) {
-            // Store user data in the session
-            $_SESSION['user_id'] = $user['id'];
-            $_SESSION['username'] = $user['username'];
+
+        if(password_verify($password, $row['password'])){
+
+            $_SESSION['user_id'] = $row['id'];
+            $_SESSION['username'] = $username;
 
             // Redirect to a dashboard or main page, for example
             header('Location: index.php');
