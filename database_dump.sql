@@ -178,3 +178,4 @@ ALTER TABLE `order_item` ADD `drink_size` VARCHAR(255) NULL DEFAULT NULL AFTER `
 UPDATE `item` SET `default_topping` = 'mozzarella cheese,parmesan cheese,cheddar cheese' WHERE `item`.`id` = 15;
 ALTER TABLE `order_item` ADD `pizza_type` VARCHAR(255) NULL DEFAULT NULL AFTER `drink_type`;
 ALTER TABLE `order_item` ADD `appetizer_type` VARCHAR(255) NULL DEFAULT NULL AFTER `pizza_type`;
+ALTER TABLE `order_item` ADD `item_price` FLOAT NOT NULL AFTER `quantity`;
