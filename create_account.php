@@ -56,7 +56,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <div class="container mt-5">
     <div class="row justify-content-center">
         <div class="col-12 col-md-8 col-lg-6"> <!-- Adjusted for grid responsiveness -->
-            <h2>Registration</h2>
+            <h2>Create Account</h2>
             <p class="text-danger"><?= $message; ?></p>
 
             <form action="create_account.php" method="POST" class="mt-3">
@@ -85,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </fieldset>
 
                 <fieldset class="mt-4">
-                    <legend>Address Information (Home)</legend>
+                    <legend>Home Address</legend>
                     <div class="mb-3">
                         <label for="line1" class="form-label">Address Line 1:</label>
                         <input type="text" name="line1" class="form-control" required>
@@ -114,7 +114,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </div>
 
                 <fieldset class="mt-4" id="billingAddressFields" style="display: none;">
-                    <legend>Billing Address Information</legend>
+                    <legend>Billing Address</legend>
                     <div class="mb-3">
                         <label for="billingLine1" class="form-label">Address Line 1:</label>
                         <input type="text" name="billingLine1" class="form-control">
@@ -156,6 +156,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         </div>
     </div>
 </div>
+
+<style>
+
+    /* Additional CSS for better presentation */
+
+    body {
+        padding-top: 75px; /* Adjusted based on navbar's height */
+        padding-bottom: 75px;
+    }
+    .main-view {
+        max-width: 600px;
+        margin: 0 auto; /* Vertically centered and horizontally centered */
+        padding: 5px;  /* Some padding for better spacing */
+    }
+</style>
 
 <?php
 include_once 'footer.php';
