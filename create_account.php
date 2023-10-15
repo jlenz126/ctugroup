@@ -85,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </fieldset>
 
                 <fieldset class="mt-4">
-                    <legend>Address Information</legend>
+                    <legend>Address Information (Home)</legend>
                     <div class="mb-3">
                         <label for="line1" class="form-label">Address Line 1:</label>
                         <input type="text" name="line1" class="form-control" required>
@@ -107,6 +107,47 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <input type="text" name="zipcode" class="form-control" required>
                     </div>
                 </fieldset>
+
+                <div class="mb-3 form-check">
+                    <input type="checkbox" id="differentBillingAddress" class="form-check-input">
+                    <label for="differentBillingAddress" class="form-check-label">Billing address is different from shipping address</label>
+                </div>
+
+                <fieldset class="mt-4" id="billingAddressFields" style="display: none;">
+                    <legend>Billing Address Information</legend>
+                    <div class="mb-3">
+                        <label for="billingLine1" class="form-label">Address Line 1:</label>
+                        <input type="text" name="billingLine1" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="billingLine2" class="form-label">Address Line 2:</label>
+                        <input type="text" name="billingLine2" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="billingCity" class="form-label">City:</label>
+                        <input type="text" name="billingCity" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="billingCountry" class="form-label">Country:</label>
+                        <input type="text" name="billingCountry" class="form-control">
+                    </div>
+                    <div class="mb-3">
+                        <label for="billingZipcode" class="form-label">Zipcode:</label>
+                        <input type="text" name="billingZipcode" class="form-control">
+                    </div>
+                </fieldset>
+
+                <script>
+                    // Using plain JavaScript
+                    document.getElementById('differentBillingAddress').addEventListener('change', function() {
+                        var billingFields = document.getElementById('billingAddressFields');
+                        if (this.checked) {
+                            billingFields.style.display = 'block';
+                        } else {
+                            billingFields.style.display = 'none';
+                        }
+                    });
+                </script>
 
                 <div class="mt-3">
                     <button type="submit" class="btn btn-primary">Register</button>
