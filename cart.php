@@ -12,9 +12,8 @@ if(isset($_SESSION['currentOrderID'])){
 }
 
 if(isset($_POST['itemID'])){
-	$itemID = $_POST['itemID'];
-	$sql_delete_item = "DELETE FROM `order_item` WHERE `order_item`.`id` = $itemID";
-	//$sql_delete_item->bind_param("i", $itemID);
+	$itemID = (int)$_POST['itemID'];
+	$sql_delete_item = "DELETE FROM `order_item` WHERE `id` = $itemID";
 	if($conn->query($sql_delete_item) === TRUE){
 		$deleted = "success";
 	} else {
@@ -35,7 +34,7 @@ if(isset($_POST['itemID'])){
 							echo "Shopping Cart Empty";
 							break;
 						default:
-							$sql_get_order_items = $conn->prepare("SELECT `item_id`, `item_price` FROM `order_item` WHERE order_id = ?");
+							$sql_get_order_items = $conn->prepare("SELECT `id`,`item_id`, `item_price` FROM `order_item` WHERE order_id = ?");
 							$sql_get_order_items->bind_param("i", $activeOrderID);
 							$sql_get_order_items->execute();
 							$result_order_items = $sql_get_order_items->get_result();
@@ -49,7 +48,6 @@ if(isset($_POST['itemID'])){
 							while($row = $result_item_names->fetch_assoc()){
 								$array_item_name[$row['id']] = $row['item_name'];
 							}
-							echo $deleted;
 							echo '<table class="table">';
 								echo '<thead>';
 									echo '<tr>';
@@ -68,7 +66,7 @@ if(isset($_POST['itemID'])){
 									echo '<td>$' . $item_price . '</td>';
 									echo '<td>';
 										echo '<form method="post" action="cart.php">';
-                            			echo '<input type="hidden" id="itemID" name="itemID" value="'. $row['item_id'] .'">';
+                            			echo '<input type="hidden" id="itemID" name="itemID" value="'. $row['id'] .'">';
                             			echo '<button type="submit" class="btn btn-light">Remove from Cart</button>'; 
                             			echo '</form>';
 									echo '</td>';
@@ -79,7 +77,6 @@ if(isset($_POST['itemID'])){
 									echo '<td>$' . number_format((float)$total, 2,'.','') . '</td>';
 									echo '<td>';
 										echo '<form method="post" action="checkout.php">';
-                            			//echo '<input type="hidden" id="itemID" name="itemID" value="'. $row['item_id'] .'">';
                             			echo '<button type="submit" class="btn btn-light">Checkout</button>'; 
                             			echo '</form>';
 									echo '</td>';
