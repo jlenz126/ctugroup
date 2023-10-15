@@ -9,7 +9,15 @@ $message = '';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
-    // ... [rest of your variables]
+    $password = $_POST['password'];
+    $firstname = $_POST['firstname'];
+    $lastname = $_POST['lastname'];
+    $employee = isset($_POST['employee']) ? 1 : 0;
+    $line1 = $_POST['line1'];
+    $line2 = $_POST['line2'];
+    $city = $_POST['city'];
+    $country = $_POST['country'];
+    $zipcode = $_POST['zipcode'];
 
     // Check if username already exists in the database
     $checkUsername = $conn->prepare("SELECT * FROM user WHERE username = ?");
