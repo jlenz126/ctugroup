@@ -5,10 +5,14 @@ include_once 'navbar.php';
 include_once 'db_connection.php';
 $conn = OpenCon();
 $activeOrderID = 0;
-$deleted = "";
 
 if(isset($_SESSION['currentOrderID'])){
 	$activeOrderID = $_SESSION['currentOrderID'];
+}
+
+//redirect for guest checkout
+if(!isset($_SESSION['user_id'])){
+    header('Location: guest_checkout.php');
 }
 ?>
 

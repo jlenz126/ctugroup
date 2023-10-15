@@ -26,7 +26,6 @@ function createOrder($conn){
         } else {
             //create session order and set $_SESSION['currentOrderID]
             $sessionID = session_id();
-            $_SESSION['guest'] = 1;
             $sql_create_session_order = "INSERT INTO `order` (`id`, `customer_id`, `fulfilled`, `created_at`, `order_total`, `session_id`) VALUES (NULL, NULL, '0', current_timestamp(), NULL, '$sessionID');";
             if($conn->query($sql_create_session_order) === TRUE){
                 $sql_get_order_ID = "SELECT `id` FROM `order` WHERE session_id = '$sessionID'";
