@@ -9,35 +9,37 @@ $message = '';
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $username = $_POST['username'];
-    $password = $_POST['password'];
-    $firstname = $_POST['firstname'];
-    $lastname = $_POST['lastname'];
-    $employee = isset($_POST['employee']) ? true : false;
-    $line1 = $_POST['line1'];
-    $line2 = $_POST['line2'];
-    $city = $_POST['city'];
-    $country = $_POST['country'];
-    $zipcode = $_POST['zipcode'];
-    
+    // ... [rest of your variables]
 
-    // If validation is successful:
-    $hashed_password = password_hash($password, PASSWORD_BCRYPT);
-    $stmt = $conn->prepare("INSERT INTO user (username, password, firstname, lastname, employee, created_at) VALUES (?, ?, ?, ?, ?, NOW())");
-    $stmt->bind_param("ssssb", $username, $hashed_password, $firstname, $lastname, $employee);
+    // Check if username already exists in the database
+    $checkUsername = $conn->prepare("SELECT * FROM user WHERE username = ?");
+    $checkUsername->bind_param("s", $username);
+    $checkUsername->execute();
+    $result = $checkUsername->get_result();
 
-    if ($stmt->execute()) {
-        // Insert address after the user registration is successful
-        $userId = $conn->insert_id;
-        $stmtAddress = $conn->prepare("INSERT INTO address (customer_id, line1, line2, city, country, zipcode, created_at) VALUES (?, ?, ?, ?, ?, ?, NOW())");
-        $stmtAddress->bind_param("issssi", $userId, $line1, $line2, $city, $country, $zipcode);
+    if ($result->num_rows > 0) {
+        // Username already exists
+        $message = "Username is already taken!";
+    } else {
+        // If validation is successful:
+        $hashed_password = password_hash($password, PASSWORD_BCRYPT);
+        $stmt = $conn->prepare("INSERT INTO user (username, password, firstname, lastname, employee, created_at) VALUES (?, ?, ?, ?, ?, NOW())");
+        $stmt->bind_param("ssssi", $username, $hashed_password, $firstname, $lastname, $employee);
 
-        if ($stmtAddress->execute()) {
-            $message = "Registration successful!";
+        if ($stmt->execute()) {
+            // Insert address after the user registration is successful
+            $userId = $conn->insert_id;
+            $stmtAddress = $conn->prepare("INSERT INTO address (customer_id, line1, line2, city, country, zipcode, created_at) VALUES (?, ?, ?, ?, ?, ?, NOW())");
+            $stmtAddress->bind_param("issssi", $userId, $line1, $line2, $city, $country, $zipcode);
+
+            if ($stmtAddress->execute()) {
+                $message = "Registration successful!";
+            } else {
+                $message = "Error occurred during registration!";
+            }
         } else {
             $message = "Error occurred during registration!";
         }
-    } else {
-        $message = "Error occurred during registration!";
     }
 }
 
