@@ -10,7 +10,7 @@ REMAINING BACKLOG:
 -14.3 reduce database privileges
     - Check all code for required SQL query types
     - Disable all unused query types
--15.1 Management Dashboard
+-15.1 Management Dashboard (Felicia)
     - Landing page for employee accounts
     - have login_processer redirect employees here
     - allow manager to give other accounts employee access
