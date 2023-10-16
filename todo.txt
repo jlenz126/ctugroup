@@ -1,0 +1,47 @@
+SPRINT 2 TODO LIST:
+
+REMAINING BACKLOG:
+
+-13.1 Create page to to input
+    - Pages were created in sprint 1, but need to be cleaned up
+-13.2 checkout_processor.php
+    - Create code that takes POST data from checkout.php and form it into a JSON file
+    - Prepare JSON to be 'sent' to third party payment processing
+-14.3 reduce database privileges
+    - Check all code for required SQL query types
+    - Disable all unused query types
+-15.1 Management Dashboard
+    - Landing page for employee accounts
+    - have login_processer redirect employees here
+    - allow manager to give other accounts employee access
+-15.2 
+    - Create code to add, remove, or update menu items
+-16.1 Add inventory to system
+    - add quantity column to items
+        - Default amount is 100
+    - add quantity view to management Dashboard
+-16.2 Integrate Inventory system
+    - have item quantities reduced when purchase is completed
+
+CODE FIXES:
+
+- clean up SQL querys in add_to_cart.php (Jacob)
+- in menu.php format added message better (Jacob)
+- check CSS on each page for different device types (Mark)
+- remove employee option from create account (Garret)
+
+OTHER ISSUES:
+
+
+
+WHOLE TEAM:
+
+- proofread website for errors
+- test all functions for proper operations
+- try to break web site
+
+SCHEDULED MEETINGS:
+
+Oct. 19th at 6:30pm central, 5:30pm mountain time, 4:30pm pacific 
+Oct. 23th at 6:30pm central, 5:30pm mountain time, 4:30pm pacific 
+Oct. 29th TBD Final meeting 
