@@ -2,6 +2,8 @@
 include_once 'session.php';
 include_once 'header.php';
 include_once 'navbar.php';
+include_once 'db_connection.php';
+$conn = OpenCon();
 ?>
 
 	<!-- Main container of page -->
@@ -16,5 +18,6 @@ include_once 'navbar.php';
 
 
 <?php
+CloseCon($conn);
 include_once 'footer.php';
 ?>
