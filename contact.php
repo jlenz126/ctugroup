@@ -11,23 +11,14 @@ include_once 'navbar.php';
         margin: 0 auto; 
         padding: 20px;
     }
-    .contact-box {
-        border: 2px solid #ddd;
-        padding: 20px;
-        border-radius: 8px;
-        position: relative;
-        margin-top: 200px;
-    }
-    .contact-box::before {
-        content: "CONTACT US";
-        font-size: 40px;
-        font-weight: bold;
-        text-align: center;
-        display: block;
-        margin-bottom: 20px;
-    }
     h2, h3 {
         margin-top: 20px;
+    }
+    html {
+        overflow-y: visible;
+    }
+    .contact-padding {
+        margin-top: 500px;
     }
 </style>
 
@@ -59,6 +50,10 @@ include_once 'navbar.php';
 
         </div>
     </div>
+</div>
+<!-- adds padding so mobile devices in landscape can scroll to see all the info -->
+<div class="row container-fluid contact-padding">
+
 </div>
 <!-- End main container -->
 

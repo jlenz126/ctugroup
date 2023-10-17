@@ -1,5 +1,5 @@
 <!-- Start of Footer -->
-<nav class="navbar fixed-bottom navbar-dark custom-colors">
+<nav class="navbar navbar-dark fixed-bottom custom-colors ">
 	  <div class="container-fluid justify-content-center">
 	    <!-- Text and copyright for footer -->
 	  	<center><h6 style="color: white">OvenWhisperer Pizza &copy; 2023</h6></center>
