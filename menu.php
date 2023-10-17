@@ -16,17 +16,15 @@ $conn = OpenCon();
         $lowercase_words = array("a","and","or","of","OG","with");
 
         if(isset($_SESSION['addedToCartMessage'])){
-          echo '<div class="alert alert-success alert-dismissible fade show" role="alert">';
+          echo '<div class="alert alert-success fade show mt-1" data-timeout="3000" role="alert">'; //closes after 3 seconds
             echo '<strong>Item Added</strong> ' . $_SESSION['addedToCartMessage'];
-            echo '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>';
           echo '</div>';
           unset($_SESSION['addedToCartMessage']);
         }
 
         if(isset($_SESSION['failedToAdd'])){
-          echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">';
+          echo '<div class="alert alert-warning fade show data-timeout="5000" " role="alert">'; //closes after 5 seconds
             echo '<strong>Failed to Add Item</strong> ' . $_SESSION['failedToAdd'];
-            echo '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>';
           echo '</div>';
           unset($_SESSION['failedToAdd']);
         }
@@ -87,7 +85,6 @@ $conn = OpenCon();
 	</div>
 
 <h1 style="padding-bottom: 300px"></h1>
-    
             
 <?php
 include_once 'footer.php';
