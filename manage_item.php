@@ -12,7 +12,31 @@ $sql_items = "SELECT `id`, `item_name`, `item_price`, `category_id` FROM `item`"
 $result_items = $conn->query($sql_items);
 
 //code for backend logic
-
+function itemTableRow ($itemName, $itemPrice, $categoryID){
+    switch ($categoryID){
+        case 1:
+            $divClass = "appetizers";
+            break;
+        case 2:
+            $divClass = "pizza";
+            break;
+        case 3:
+            $divClass = "kid";
+            break;
+        case 4:
+            $divClass = "combos";
+            break;
+        case 5:
+            $divClass = "drinks";
+            break;
+        default:
+            $divClass = "error";
+            echo 'Category not found';
+    }
+    echo '<div class="'. $divClass .'" style="display: none;">';
+    echo 'Item Name: ' . $itemName . ' Price $' . $itemPrice;
+    echo '</div>';
+}
 ?>
 
 	<!-- Main container of page -->
@@ -35,53 +59,31 @@ $result_items = $conn->query($sql_items);
                             }
                         echo '</select>';
                         ?>
-                        <div id="appetizers" style="display: none;"> 
+                        <div class="text-center" id="appetizers" style="display: none;"> 
                             appetizers 1
                             <br>
                         </div>
 
-                        <div id="pizza" style="display: none;">
+                        <div class="text-center" id="pizza" style="display: none;">
                             pizza 2
-                            <BR>
-                        </div>
-                        <div id="kid" style="display: none;">
-                            kids meal 3
-                        </div>
-                        <div id="combos" style="display: none;">
-                            combos 4
-                        </div>
-                        <div id="drinks" style="display: none;">
                             <br>
+                        </div>
+                        <div class="text-center" id="kid" style="display: none;">
+                            kids meal 3
+                            <br>
+                        </div>
+                        <div class="text-center" id="combos" style="display: none;">
+                            combos 4
+                            <br>
+                        </div>
+                        <div class="text-center" id="drinks" style="display: none;">
                             drinks 5
+                            <br>
                         </div>
                         <?php
                             if($result_items->num_rows > 0){
                                 while($row = $result_items->fetch_assoc()){
-                                    if($row['category_id'] == 1){
-                                        echo '<div class="appetizers" style="display: none;">';
-                                        echo $row['item_name'];
-                                        echo '</div>';
-                                    }
-                                    if($row['category_id'] == 2){
-                                        echo '<div class="pizza" style="display: none;">';
-                                        echo $row['item_name'];
-                                        echo '</div>';
-                                    }
-                                    if($row['category_id'] == 3){
-                                        echo '<div class="kid" style="display: none;">';
-                                        echo $row['item_name'];
-                                        echo '</div>';
-                                    }
-                                    if($row['category_id'] == 4){
-                                        echo '<div class="combos" style="display: none;">';
-                                        echo $row['item_name'];
-                                        echo '</div>';
-                                    }
-                                    if($row['category_id'] == 5){
-                                        echo '<div class="drinks" style="display: none;">';
-                                        echo $row['item_name'];
-                                        echo '</div>';
-                                    }
+                                    itemTableRow($row['item_name'], $row['item_price'], $row['category_id']);
                                 }
                             }
                         ?>
