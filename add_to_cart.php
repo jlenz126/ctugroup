@@ -71,9 +71,9 @@ function pizzaPrice($size){
 function addPizzaToOrder ($conn, $orderID, $pizzaID, $toppings){
     $sql_add_pizza = "INSERT INTO `order_item` (`id`, `order_id`, `item_id`, `quantity`, `drink_size`, `drink_type`) VALUES (NULL, $orderID, $pizzaID, '1', NULL, NULL);";
     if($conn->query($sql_add_pizza) === TRUE){
-        $_SESSION['addedToCartMessage']='pizza added';
+        $_SESSION['addedToCartMessage']='';
     } else {
-        $_SESSION['addedToCartMessage']='Failed to add pizza';
+        $_SESSION['failedToAdd']='';
     }
     if($toppings != 0){
         $sql_get_order_ID = "SELECT `id` FROM `order_item` WHERE `item_id` = $pizzaID and `order_id` = $orderID ORDER BY `created_at` DESC LIMIT 1;";
@@ -82,9 +82,9 @@ function addPizzaToOrder ($conn, $orderID, $pizzaID, $toppings){
         foreach ($toppings as $value){
             $sql_add_topping = "INSERT INTO `order_topping` (`id`, `topping_id`, `order_id`, `orderitem_id`) VALUES (NULL, $value, $orderID, $orderKey);";
             if($conn->query($sql_add_topping) === TRUE){
-                $_SESSION['addedToCartMessage']= $_SESSION['addedToCartMessage'] . ' toppings added';
+                $_SESSION['addedToCartMessage']= '';
             } else {
-                $_SESSION['addedToCartMessage'] = $_SESSION['addedToCartMessage'] . ' Failed to add toppings';
+                $_SESSION['failedToAdd'] = '';
             }
         }
     }
@@ -102,9 +102,9 @@ if($process == 1){
     if($conn->query($sql_add_appetizer) === TRUE){
         $item_ID = getItemID($conn, $orderID, $itemID);
         updateTotalPrice($conn, $orderID, $item_ID, $_POST['itemPrice']);
-        $_SESSION['addedToCartMessage']='app added price:';
+        $_SESSION['addedToCartMessage']='';
     } else {
-        $_SESSION['addedToCartMessage']='Failed to add appetizer';
+        $_SESSION['failedToAdd']='Failed to add appetizer';
     }
     header("Location: menu.php");
 }
@@ -130,9 +130,9 @@ if($process == 3){
     if($conn->query($sql_add_kid_meal) === TRUE){
         $item_ID = getItemID($conn, $orderID, $kidMealID);
         updateTotalPrice($conn, $orderID, $item_ID, $kidMealPrice);
-        $_SESSION['addedToCartMessage']='kids meal id: ' . $kidMealID . ' price ' . $kidMealPrice . ' drink ' . $kidMealDrink;
+        $_SESSION['addedToCartMessage']='';
     } else {
-        $_SESSION['addedToCartMessage']= "Failed to add kid's meal";
+        $_SESSION['failedToAdd']= '';
     }
     header("Location: menu.php");
 }
@@ -150,9 +150,9 @@ if($process == 4){
             if($conn->query($sql_add_combo1) === TRUE){
                 $item_ID = getItemID($conn, $orderID, $comboID);
                 updateTotalPrice($conn, $orderID, $item_ID, $comboPrice);
-                $_SESSION['addedToCartMessage']='combo added 1 ' . $pizzaType . $drinkType;
+                $_SESSION['addedToCartMessage']='';
             } else {
-                $_SESSION['addedToCartMessage']= "Failed to add combo meal";
+                $_SESSION['failedToAdd']= '';
             }
             
             header("Location: menu.php");
@@ -164,9 +164,9 @@ if($process == 4){
             if($conn->query($sql_add_combo2) === TRUE){
                 $item_ID = getItemID($conn, $orderID, $comboID);
                 updateTotalPrice($conn, $orderID, $item_ID, $comboPrice);
-                $_SESSION['addedToCartMessage']='combo added 2 ' . $pizzaType . $drinkType;
+                $_SESSION['addedToCartMessage']='';
             } else {
-                $_SESSION['addedToCartMessage']= "Failed to add combo meal";
+                $_SESSION['failedToAdd']= '';
             }
             header("Location: menu.php");
             break;
@@ -176,9 +176,9 @@ if($process == 4){
             if($conn->query($sql_add_combo3) === TRUE){
                 $item_ID = getItemID($conn, $orderID, $comboID);
                 updateTotalPrice($conn, $orderID, $item_ID, $comboPrice);
-                $_SESSION['addedToCartMessage']='combo added 3 ' . $pizzaType . $drinkType;
+                $_SESSION['addedToCartMessage']='';
             } else {
-                $_SESSION['addedToCartMessage']= "Failed to add combo meal";
+                $_SESSION['failedToAdd']= '';
             }
             header("Location: menu.php");
             break;
@@ -194,14 +194,14 @@ if($process == 4){
             if($conn->query($sql_add_combo3) === TRUE){
                 $item_ID = getItemID($conn, $orderID, $comboID);
                 updateTotalPrice($conn, $orderID, $item_ID, $comboPrice);
-                $_SESSION['addedToCartMessage']='combo added 4 ' . $pizzaType . $drinkCombined;
+                $_SESSION['addedToCartMessage']='';
             } else {
-                $_SESSION['addedToCartMessage']= "Failed to add combo meal";
+                $_SESSION['failedToAdd']= '';
             }
             header("Location: menu.php");
             break;
         default:
-            echo "combo error"; //change to session message error
+            $_SESSION['failedToAdd']= '';
 
 
     header("Location: menu.php");
@@ -220,9 +220,9 @@ if($process == 5){
         } 
         $item_ID = getItemID($conn, $orderID, $drinkID);
         updateTotalPrice($conn, $orderID, $item_ID, $drinkPrice);
-        $_SESSION['addedToCartMessage']='drink added type: '. $_POST['drink'] . " size " . $_POST['size'];
-    } else {
-        $_SESSION['addedToCartMessage']= "Failed to add drink";
+        $_SESSION['addedToCartMessage']='';
+        } else {
+            $_SESSION['failedToAdd']= '';
     }
     
     header("Location: menu.php");
