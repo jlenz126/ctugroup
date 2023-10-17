@@ -16,9 +16,21 @@ $conn = OpenCon();
         $lowercase_words = array("a","and","or","of","OG","with");
 
         if(isset($_SESSION['addedToCartMessage'])){
-          echo $_SESSION['addedToCartMessage'];
+          echo '<div class="alert alert-success alert-dismissible fade show" role="alert">';
+            echo '<strong>Item Added</strong> ' . $_SESSION['addedToCartMessage'];
+            echo '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>';
+          echo '</div>';
           unset($_SESSION['addedToCartMessage']);
         }
+
+        if(isset($_SESSION['failedToAdd'])){
+          echo '<div class="alert alert-warning alert-dismissible fade show" role="alert">';
+            echo '<strong>Failed to Add Item</strong> ' . $_SESSION['failedToAdd'];
+            echo '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>';
+          echo '</div>';
+          unset($_SESSION['failedToAdd']);
+        }
+
         echo '<div class="accordion accordion-flush" id="MenuAccordion">';
         if($result_categories->num_rows > 0) {
           while($row = $result_categories->fetch_assoc()){
