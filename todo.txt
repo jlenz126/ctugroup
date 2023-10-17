@@ -27,14 +27,12 @@ REMAINING BACKLOG:
 CODE FIXES:
 
 - clean up SQL querys in add_to_cart.php (Jacob)
-- in menu.php format added message better (Jacob)
 - check CSS on each page for different device types (Mark)
 - remove employee option from create account (Garret)
 
 OTHER ISSUES:
 
 - OG pizza loads with both sausage and italian sausage when it should only be italian sausage
-
 
 WHOLE TEAM:
 
