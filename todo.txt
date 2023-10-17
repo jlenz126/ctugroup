@@ -2,7 +2,7 @@ SPRINT 2 TODO LIST:
 
 REMAINING BACKLOG:
 
--13.1 Create page to take payment input
+-13.1 Create page to take payment input (Felicia)
     - Pages were created in sprint 1, but need to be cleaned up
 -13.2 checkout_processor.php
     - Create code that takes POST data from checkout.php and form it into a JSON file
