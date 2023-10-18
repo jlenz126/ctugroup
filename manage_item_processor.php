@@ -43,7 +43,28 @@ if(isset($_POST)){
 		<div class="row">
 			<div class="main-view landingPadding">
 				<!-- Content here -->
-                <?php echo $caseID; ?>
+                <?php 
+                switch((string)$caseID){
+                    case 'newAppetizer':
+                        echo $caseID;
+                        break;
+                    case 'newPizza':
+                        echo $caseID;
+                        break;
+                    case 'newKid':
+                        echo $caseID;
+                        break;
+                    case 'newCombo':
+                        echo $caseID;
+                        break;
+                    case 'newDrink':
+                        echo $caseID;
+                        break;
+                    default:
+                        echo $caseID;
+                        echo 'default';
+                }
+                ?>
 			</div>
 		</div>
 	</div>
