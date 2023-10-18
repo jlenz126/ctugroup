@@ -33,41 +33,37 @@ $result_items = $conn->query($sql_items);
                             }
                         echo '</select>';
                         echo '</form>';
-                        
-                        
-                        
-                        // <!-- <div class="text-center" id="appetizers" style="display: none;"><BR>
-                        //     <input type="radio" id="newAppetizer" name="newItem" value="newAppetizer">
-                        //     <label for="newAppetizer">Add new appetizer</label>
-                        //     <br>
-                        // </div>
 
-                        // <div class="text-center" id="pizza" style="display: none;">
-                        //     <input type="radio" id="newPizza" name="newItem" value="newPizza">
-                        //     <label for="newPizza">Add new pizza</label>
-                        //     <br>
-                        // </div>
-                        // <div class="text-center" id="kid" style="display: none;">
-                        //     <input type="radio" id="newKid" name="newItem" value="newKid">
-                        //     <label for="newKid">Add new Kid's Meal</label>
-                        //     <br>
-                        // </div>
-                        // <div class="text-center" id="combos" style="display: none;">
-                        //     <input type="radio" id="newCombo" name="newItem" value="newCombo">
-                        //     <label for="newCombo">Add new combo</label>
-                        //     <br>
-                        // </div>
-                        // <div class="text-center" id="drinks" style="display: none;">
-                        //     <input type="radio" id="newDrink" name="newItem" value="newDrink">
-                        //     <label for="newDrink">Add new drink</label>
-                        //     <br>
-                        // </div> -->
                         echo '<div class="row">';
                         echo '<form method="post" action="manage_item_processor.php">';
+                        echo '<div class="form-check appetizers" style="display: none;">';
+                            echo '<input type="radio" id="newAppetizer" name="newAppetizer" value="newAppetizer">';
+                            echo '<label for="newAppetizer">Add new appetizer</label>';
+                            echo '<br>';
+                        echo '</div>';
+                        echo '<div class="form-check pizza" style="display: none;">';
+                            echo '<input type="radio" id="newPizza" name="newPizza" value="newPizza">';
+                            echo '<label for="newPizza">Add new pizza</label>';
+                            echo '<br>';
+                        echo '</div>';
+                        echo '<div class="form-check kid" style="display: none;">';
+                            echo '<input type="radio" id="newKid" name="newKid" value="newKid">';
+                            echo '<label for="newKid">Add new Kid\'s meal</label>';
+                            echo '<br>';
+                        echo '</div>';
+                        echo '<div class="form-check combos" style="display: none;">';
+                            echo '<input type="radio" id="newCombo" name="newCombo" value="newCombo">';
+                            echo '<label for="newCombo">Add new combo</label>';
+                            echo '<br>';
+                        echo '</div>';
+                        echo '<div class="form-check drinks" style="display: none;">';
+                            echo '<input type="radio" id="newDrink" name="newDrink" value="newDrink">';
+                            echo '<label for="newDrink">Add new drink</label>';
+                            echo '<br>';
+                        echo '</div>';
                                     
                                         if($result_items->num_rows > 0){
                                             while($row = $result_items->fetch_assoc()){
-                                                //itemTableRow($row['id'], $row['item_name'], $row['item_price'], $row['category_id']);
                                                 switch ($row['category_id']){
                                                     case 1:
                                                         $divClass = "appetizers";
@@ -88,9 +84,9 @@ $result_items = $conn->query($sql_items);
                                                         $divClass = "error";
                                                         echo 'Category not found';
                                                 }
-                                                echo '<div class="'. $divClass .'" style="display: none;">';
+                                                echo '<div class="'. $divClass .' form-check" style="display: none;">';
                                                 echo '<input type="radio" id="'. $row['item_name'] .'" name="'. $row['id'] .'" >';
-                                                echo '<label for="' . $row['item_name'] . '">   '. $row['item_name'] . '</label><br>';
+                                                echo '<label for="' . $row['item_name'] . '">'. $row['item_name'] . '</label><br>';
                                                 echo '</div>';
                                             }
                                         }
