@@ -5,19 +5,35 @@ include_once 'navbar.php';
 include_once 'db_connection.php';
 $conn = OpenCon();
 
+$caseID = null;
+$totalItems = 0;
+
 if(isset($_POST)){
     
-    for($i = 0; $i < 25; $i++){
+    $sql_total_items = "SELECT MAX(`id`) FROM `item`";
+    $result_total_items = $conn->query($sql_total_items);
+    $totalItems = $result_total_items->fetch_row()[0];
+
+    for($i = 0; $i <= $totalItems; $i++){
         if(isset($_POST[$i])){
-            echo 'item id: ' . $i;
+            $caseID = $i;
         }
     }
 
-    if(isset($_POST['newDrink'])){
-        echo 'newDrink';
+    if(isset($_POST['newAppetizer'])){
+        $caseID = 'newAppetizer';
     }
     if(isset($_POST['newPizza'])){
-        echo 'pizza';
+        $caseID = 'newPizza';
+    }
+    if(isset($_POST['newKid'])){
+        $caseID = 'newKid';
+    }
+    if(isset($_POST['newCombo'])){
+        $caseID = 'newCombo';
+    }
+    if(isset($_POST['newDrink'])){
+        $caseID = 'newDrink';
     }
 }
 ?>
@@ -27,6 +43,7 @@ if(isset($_POST)){
 		<div class="row">
 			<div class="main-view landingPadding">
 				<!-- Content here -->
+                <?php echo $caseID; ?>
 			</div>
 		</div>
 	</div>
