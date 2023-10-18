@@ -1,22 +1,19 @@
 <?php
-include_once 'session.php';
-include_once 'header.php';
-include_once 'navbar.php';
-?>
-
-	<!-- Main container of page -->
-	<div class="container-fluid">
-		<div class="row">
-			<div class="main-view landingPadding">
-				<!-- List ten reviews per page, default order from best to worst -->
-			</div>
-		</div>
-	</div>
-	<!-- End main container -->
-
-
-<?php
 include_once 'footer.php';
+
+$pdo = new PDO('mysql:host=localhost;dbname=pizza_restaurant', 'your_username', 'your_password');
+$pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+$reviewsPerPage = 10;
+
+$page = isset($_GET['page']) ? (int)$_GET['page'] : 1;
+
+$offset = ($page - 1) * $reviewsPerPage;
+
+$query = "SELECT * FROM reviews ORDER BY rating DESC LIMIT $offset, $reviewsPerPage";
+
+$reviews = $pdo->query($query);
+
 ?>
 
 <!DOCTYPE html>
@@ -29,23 +26,30 @@ include_once 'footer.php';
 
     <!-- Display existing reviews here -->
     <?php
-   
-    try {
-        $pdo = new PDO('mysql:host=localhost;dbname=your_database_name', 'your_username', 'your_password');
-        $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-        $query = "SELECT * FROM reviews";
-        $reviews = $pdo->query($query);
-
-        foreach ($reviews as $row) {
-            echo "Review ID: " . $row['id'] . "<br>";
-            echo "Rating: " . $row['rating'] . " stars<br>";
-            echo "Review: " . $row['reviewText'] . "<br><br>";
-        }
-    } catch (PDOException $e) {
-        echo "Error: " . $e->getMessage();
+    foreach ($reviews as $row) {
+        echo "Review ID: " . $row['id'] . "<br>";
+        echo "Rating: " . $row['rating'] . " stars<br>";
+        echo "Review: " . $row['reviewText'] . "<br><br>";
     }
     ?>
+
+    <!-- Pagination links -->
+    <div class="pagination">
+        <?php
+        
+        $totalReviewsQuery = "SELECT COUNT(*) AS total FROM reviews";
+        $totalReviewsResult = $pdo->query($totalReviewsQuery);
+        $totalReviews = $totalReviewsResult->fetch(PDO::FETCH_ASSOC)['total'];
+
+        
+        $totalPages = ceil($totalReviews / $reviewsPerPage);
+
+       
+        for ($i = 1; $i <= $totalPages; $i++) {
+            echo "<a href='?page=$i'>$i</a> ";
+        }
+        ?>
+    </div>
 
     <!-- Button to take customers to the review form -->
     <a href="review_form.php">Leave a Review</a>
@@ -84,7 +88,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $reviewText = $_POST["review"];
 
     try {
-        $pdo = new PDO('mysql:host=localhost;dbname=your_database_name', 'your_username', 'your_password');
+        $pdo = new PDO('mysql:host=localhost;dbname=pizza_restaurant', 'your_username', 'your_password');
         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
         $query = "INSERT INTO reviews (name, rating, reviewText) VALUES (?, ?, ?)";
