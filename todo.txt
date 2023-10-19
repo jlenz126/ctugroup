@@ -29,7 +29,6 @@ CODE FIXES:
 
 OTHER ISSUES:
 
-- OG pizza loads with both sausage and italian sausage when it should only be italian sausage
 - fix bug for registered users prior cart to load on login (Jacob)
 
 WHOLE TEAM:
