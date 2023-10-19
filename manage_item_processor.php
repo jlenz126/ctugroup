@@ -8,13 +8,15 @@ $conn = OpenCon();
 $caseID = null;
 $addedAlert = null;
 $totalItems = 0;
+$itemID = null;
 
 if(isset($_POST['process'])){
-    $itemName = $_POST['itemName'];
-    $itemDescription = $_POST['itemDescription'];
-    $itemPrice = $_POST['itemPrice'];
-    $categoryID = $_POST['categoryID'];
-    $defaultTopping = $_POST['defaultTopping'];
+    (isset($_POST['itemName'])) ? $itemName = $_POST['itemName'] : $itemName = "";
+    (isset($_POST['itemDescription'])) ? $itemDescription = $_POST['itemDescription'] : $itemDescription = "";
+    (isset($_POST['itemPrice'])) ? $itemPrice = $_POST['itemPrice'] : $itemPrice = 0;
+    (isset($_POST['categoryID'])) ? $categoryID = $_POST['categoryID'] : $categoryID = null;
+    (isset($_POST['defaultTopping'])) ? $defaultTopping = $_POST['defaultTopping'] : $defaultTopping = "";
+    (isset($_POST['itemID'])) ? $itemID = $_POST['itemID'] : $itemID = null;
 
     switch($_POST['process']){
         case 1:
@@ -24,7 +26,7 @@ if(isset($_POST['process'])){
             $addedAlert = $itemName . " added";
             header("Refresh:3; url=manage_item.php");
             break;
-        case 2: //code to add pizza
+        case 2: 
             $toppingString = null;
 
             foreach($defaultTopping as $topping){
@@ -64,6 +66,14 @@ if(isset($_POST['process'])){
             $addedAlert = $itemName . " added";
             header("Refresh:3; url=manage_item.php");
             break;
+        case 4:
+            $addedAlert = $itemName . " edited";
+            header("Refresh:3; url=manage_item.php");
+            break;
+        case 5:
+            $addedAlert = $itemID . " deleted";
+            header("Refresh:3; url=manage_item.php");
+            break;
         default:
             $addedAlert = "Failed to add item will redirect";
             header("Refresh:3; url=manage_item.php");
@@ -78,9 +88,10 @@ if(isset($_POST)){
     $result_total_items = $conn->query($sql_total_items);
     $totalItems = $result_total_items->fetch_row()[0];
 
-    for($i = 0; $i <= $totalItems; $i++){
+    for($i = 1; $i <= $totalItems; $i++){
         if(isset($_POST[$i])){
-            $caseID = $i;
+            $caseID = 6;
+            $itemID = $i;
         }
     }
 
@@ -217,10 +228,54 @@ if(isset($_POST)){
                         </form>
                         <?php
                         break;
+                    case 6:
+                        $sql_get_item = "SELECT * FROM `item` WHERE `id`=$itemID";
+                        $result_get_item = $conn->query($sql_get_item);
+                        $item = $result_get_item->fetch_assoc();
+                        
+                        echo '<form action="manage_item_processor.php" method="POST">';
+                            echo '<div class="form-element">';
+                                echo '<label for="itemName">Name:</label>';
+                                echo '<input type="text" id="itemName" name="itemName" required class="form-control" value="'. $item['item_name'] .'">';
+                            echo '</div>';
+                            if($item['category_id'] == 3){
+                                echo '<div class="form-element">';
+                                    echo '<label for="itemDescription">Description:</label>';
+                                    echo '<input type="text" id="itemDescription" name="itemDescription" required class="form-control" value="'. $item['item_description'] .'">';
+                                echo '</div>';
+                            } else {
+                                echo '<input type="hidden" id="itemDescription" name="itemDescription" value="">';
+                            }
+                            echo '<div class="form-element">';
+                                echo '<label for="itemPrice">Price:</label>';
+                                echo '<input type="number" id="itemPrice" name="itemPrice" required class="form-control" value="'. $item['item_price'] .'">';
+                            echo '</div>';
+                            if($item['category_id'] == 2){
+                                //load toppings
+                            } else {
+                                echo '<input type="hidden" id="defaultTopping" name="defaultTopping" value="">';
+                            }
+                            echo '<input type="hidden" id="categoryID" name="categoryID" value="'. $item['category_id'] .'">';
+                            echo '<input type="hidden" id="itemID" name="itemID" value="'. $item['id'] .'">';
+                            echo '<input type="hidden" id="process" name="process" value="4">';
+                            echo '<div class="form-button text-center">';
+                                echo '<input type="submit" value="Confirm Change" class="btn btn-light btn-lg">';
+                            echo '</div>';
+                        echo '</form>';
+                        echo '<form action="manage_item_processor.php" method="POST">';
+                            echo '<input type="hidden" id="itemID" name="itemID" value="'. $item['id'] .'">';
+                            echo '<input type="hidden" id="itemName" name="itemName" value="'. $item['item_name'] .'">';
+                            echo '<input type="hidden" id="process" name="process" value="5">';
+                            echo '<div class="form-button text-center">';
+                                echo '<input type="submit" value="Delete Item" class="btn btn-light btn-lg">';
+                            echo '</div>';
+                        echo '</form>';
+
+                        //echo $item['category_id'];
+                        break;
+                    
                     default:
-                        echo $caseID;
-                        echo $addedAlert;
-                        //echo 'default';
+                        echo $addedAlert; //set redirect
                 }
                 ?>
 			</div>
