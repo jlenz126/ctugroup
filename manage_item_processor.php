@@ -67,11 +67,17 @@ if(isset($_POST['process'])){
             header("Refresh:3; url=manage_item.php");
             break;
         case 4:
+            $sql_edit_item = $conn->prepare("UPDATE item SET item_name=?, item_description=?, item_price=?, default_topping=? WHERE id=?");
+            $sql_edit_item->bind_param("ssdsi", $itemName, $itemDescription, $itemPrice, $defaultTopping, $itemID);
+            $sql_edit_item->execute();
             $addedAlert = $itemName . " edited";
             header("Refresh:3; url=manage_item.php");
             break;
         case 5:
-            $addedAlert = $itemID . " deleted";
+            $sql_delete_item = $conn->prepare("DELETE FROM item WHERE id=?");
+            $sql_delete_item->bind_param("i", $itemID);
+            $sql_delete_item->execute();
+            $addedAlert = $itemName . " deleted";
             header("Refresh:3; url=manage_item.php");
             break;
         default:
