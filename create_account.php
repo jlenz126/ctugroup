@@ -96,10 +96,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <label for="lastname" class="form-label">Last Name:</label>
                         <input type="text" name="lastname" class="form-control" required>
                     </div>
-                    <div class="mb-3 form-check">
-                        <input type="checkbox" name="employee" class="form-check-input" id="employee">
-                        <label for="employee" class="form-check-label">Is Employee?</label>
-                    </div>
                 </fieldset>
 
                 <fieldset class="mt-4">
