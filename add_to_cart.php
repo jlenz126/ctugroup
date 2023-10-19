@@ -255,6 +255,9 @@ if($process == 5){
                                         $checked = null;
                                         if(str_contains($toppings_string, $row['topping_name'])){
                                             $checked = 'checked=""';
+                                            if(($row['topping_name'] == 'sausage') && ($_POST['itemID'] == 13)){
+                                                $checked = '';
+                                            }
                                         }
 
                                         echo '<div class="form-check">';
