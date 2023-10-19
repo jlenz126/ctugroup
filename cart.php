@@ -11,6 +11,16 @@ if(isset($_SESSION['currentOrderID'])){
 	$activeOrderID = $_SESSION['currentOrderID'];
 }
 
+if(($activeOrderID == 0) && (isset($_SESSION['user_id']))){
+	$userID = $_SESSION['user_id'];
+	$sql_check_saved_order = "SELECT `id` FROM `order` WHERE fulfilled = 0 and customer_id = $userID";
+	$result_saved_order = $conn->query($sql_check_saved_order);
+	if($result_saved_order->num_rows > 0){
+		$_SESSION['currentOrderID'] = $result_saved_order->fetch_row()[0];
+		$activeOrderID = $_SESSION['currentOrderID'];
+	}
+}
+
 if(isset($_POST['itemID'])){
 	$itemID = (int)$_POST['itemID'];
 	$sql_delete_item = "DELETE FROM `order_item` WHERE `id` = $itemID";
