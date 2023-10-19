@@ -14,8 +14,6 @@ REMAINING BACKLOG:
     - Landing page for employee accounts
     - have login_processer redirect employees here
     - allow manager to give other accounts employee access
--15.2 (Jacob)
-    - Create code to add, remove, or update menu items
 -16.1 Add inventory to system
     - add quantity column to items
         - Default amount is 100
@@ -28,7 +26,6 @@ CODE FIXES:
 
 - clean up SQL querys in add_to_cart.php (Jacob)
 - check CSS on each page for different device types (Mark)
-- remove employee option from create account (Garret)
 
 OTHER ISSUES:
 
