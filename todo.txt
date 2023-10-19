@@ -29,8 +29,6 @@ CODE FIXES:
 
 OTHER ISSUES:
 
-- fix bug for registered users prior cart to load on login (Jacob)
-
 WHOLE TEAM:
 
 - proofread website for errors
