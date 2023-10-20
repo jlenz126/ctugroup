@@ -7,8 +7,6 @@ REMAINING BACKLOG:
 -13.2 checkout_processor.php (Jacob)
     - Create code that takes POST data from checkout.php and form it into a JSON file
     - Prepare JSON to be 'sent' to third party payment processing
--14.3 reduce database privileges
-    - note user privleges in db dump
 -16.1 Add inventory to system (Garret)
     - add quantity column to items
         - Default amount is 100

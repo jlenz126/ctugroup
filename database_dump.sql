@@ -2,6 +2,7 @@
 You will need to create a DB named pizza_restaurant
 create a user named pizza_user
 with a password of pizza
+account will need SELECT, INSERT, UPDATE, AND DELETE privileges
 
 this database still needs to have the menu items uploaded,
 which I'll create another dump for that
