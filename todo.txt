@@ -19,7 +19,6 @@ CODE FIXES:
 
 OTHER ISSUES:
 
-- display reviews in cards
 - Once 16.1 is done remove items from inventory during checkout in checkout_processor (Jacob)
 
 WHOLE TEAM:
