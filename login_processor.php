@@ -15,7 +15,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     if (empty($username) || empty($password)) {
         $message = "All fields are required!";
     } else {
-        $sql_get_id_password = $conn->prepare("SELECT `id`,`password` FROM `user` WHERE username = ?");
+        $sql_get_id_password = $conn->prepare("SELECT `id`,`password`,`employee` FROM `user` WHERE username = ?");
         $sql_get_id_password->bind_param("s", $username);
         $sql_get_id_password->execute();
         $result = $sql_get_id_password->get_result();
@@ -26,9 +26,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             
             $_SESSION['user_id'] = $row['id'];
             $_SESSION['username'] = $username;
+            $_SESSION['employee'] = $row['employee'];
 
             // Redirect to a dashboard or main page, for example
-            header('Location: index.php');
+            if($_SESSION['employee'] == 1){
+                header('Location: management_dashboard.php');
+            } else{
+                header('Location: index.php');
+            }
             exit;
         } else {
             $message = "Invalid username or password!";
