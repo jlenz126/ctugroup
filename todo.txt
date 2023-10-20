@@ -16,7 +16,6 @@ CODE FIXES:
 
 - clean up SQL querys in add_to_cart.php (Jacob)
 - check CSS on each page for different device types (Mark)
-- navbar: add reviews back, change login to logout when user is logged in (Jacob)
 
 OTHER ISSUES:
 
