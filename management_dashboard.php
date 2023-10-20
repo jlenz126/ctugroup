@@ -8,8 +8,6 @@ $conn = OpenCon();
 $caseID = 0;
 $outputMessage = null;
 
-$_SESSION['employee'] = 1; // Remove after testing
-
 // Check if admin rights
 if(isset($_SESSION['employee'])){
     if($_SESSION['employee'] != 1){
