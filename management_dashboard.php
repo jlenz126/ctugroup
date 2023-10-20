@@ -22,6 +22,24 @@ if(isset($_SESSION['employee'])){
 if(isset($_POST['manageActivity'])){
     $outputMessage = $_POST['manageActivity'];
     $caseID = 3;
+
+    switch($_POST['manageActivity']){
+        case 'activeOrders':
+            $caseID = $_POST['manageActivity'];
+            break;
+        case 'manageItem':
+            header('Location: manage_item.php');
+            break;
+        case 'manageInventory':
+            header('Location: manage_inventory.php');
+            break;
+        case 'managePrivileges':
+            $caseID = $_POST['manageActivity'];
+            break;
+        default:
+            $outputMessage = 'error manageactivity';
+            $caseID = 'error';
+    }
 }
 ?>
 
@@ -49,6 +67,14 @@ if(isset($_POST['manageActivity'])){
                                     <input type="hidden" id="categoryID" name="categoryID" value="2">
                                     <input type="hidden" id="process" name="process" value="2"> -->
                                     <?php
+                            break;
+                        case 'activeOrders':
+                            echo 'activeOrders';
+                            header("Refresh:3; url=management_dashboard.php");
+                            break;
+                        case 'managePrivileges':
+                            echo 'managePrivileges';
+                            header("Refresh:3; url=management_dashboard.php");
                             break;
                         default:
                             echo 'default <br>';
