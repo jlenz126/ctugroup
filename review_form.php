@@ -2,72 +2,34 @@
 include_once 'session.php';
 include_once 'header.php';
 include_once 'navbar.php';
-include_once 'db_connection.php';
-$conn = OpenCon();
-
-// if (isset($_POST['name'])) {
-//     // $name = $_POST['name'];
-//     // $rating = $_POST['rating'];
-//     // $reviewText = $_POST['review'];
-
-//     // $name = '';
-//     // $rating = 0;
-//     // $reviewText = '';
-
-//     if(isset($_POST['name'])){
-//         $name = $_POST['name'];
-//     }
-//     if(isset($_POST['rating'])){
-//         $rating = $_POST['rating'];
-//     }
-//     if(isset($_POST['review'])){
-//         $reviewText = $_POST['review'];
-//     }
-
-//     try {
-//         $pdo = new PDO('mysql:host=localhost;dbname=pizza_restaurant', 'pizza_user', 'pizza');
-//         $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-//         $query = "INSERT INTO reviews (user_name, rating, reviewText) VALUES (?, ?, ?)";
-//         $stmt = $pdo->prepare($query);
-//         $stmt->execute([$name, $rating, $reviewText]);
-
-//         header("Location: reviews.php");
-//         exit;
-//     } catch (PDOException $e) {
-//         echo "Error: " . $e->getMessage();
-//     }
-// } else {
-//     //echo $reviewError = 'Error saving review';
-//     exit;
-// }
 ?>
+    <div class="container mt-5">
+        <div class="row justify-content-center">
+            <div class="col-12 col-md-8 col-lg-6 landingPadding">
+                <h2>Leave a Review</h2>
 
-	<!-- Main container of page -->
-	<div class="container-fluid">
-		<div class="row">
-			<div class="main-view landingPadding">
-                <h1>Leave a Review</h1>
-
-                <form action="review_processor.php" method="post">
-                    <label for="name">Your Name:</label>
-                    <input type="text" id="name" name="name" required>
-
-                    <label for="rating">Rating (1-5):</label>
-                    <input type="number" id="rating" name="rating" min="1" max="5" required>
-
-                    <label for="review">Review:</label>
-                    <textarea id="review" name="review" rows="4" required></textarea>
-
-                    <input type="submit" value="Submit Review">
+                <form action="review_processor.php" method="POST" class="mt-3">
+                    <fieldset>              
+                        <div class="mb-3">
+                            <label for="name" class="form-label">Name:</label>
+                            <input type="text" name="name" class="form-control" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="rating" class="form-label">Rating (1-5):</label>
+                            <input type="number" name="rating" class="form-control" min="1" max="5" required>
+                        </div>
+                        <div class="mb-3">
+                            <label for="review" class="form-label">Review:</label>
+                            <input type="text" name="review" rows="4" class="form-control" required>
+                        </div>
+                    </fieldset>
+                    <div class="mt-3">
+                        <button type="submit" class="btn btn-light">Submit</button>
+                    </div>
                 </form>
-			</div>
-		</div>
-	</div>
-	<!-- End main container -->
-
-
+            </div>
+        </div>
+    </div>
 <?php
-CloseCon($conn);
 include_once 'footer.php';
 ?>
