@@ -1,6 +1,6 @@
 <?php
 (isset($_SESSION['user_id'])) ? $login = 'logout' :  $login = 'login';
-(isset($_SESSION['employee'])) ? $employee = 'management_dashboard' :  $employee = 'contact';
+(isset($_SESSION['employee']) && $_SESSION['employee'] == 1) ? $employee = 'management_dashboard' :  $employee = 'contact';
 
 ?>
 
