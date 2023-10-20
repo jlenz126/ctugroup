@@ -17,17 +17,29 @@ $query = "SELECT * FROM reviews ORDER BY rating DESC LIMIT $offset, $reviewsPerP
 $reviews = $pdo->query($query);
 ?>
 
-	<!-- Main container of page -->
-	<div class="container-fluid">
+    <div class="row container-fluid serviceCards landingPadding">
+	<?php
+        foreach ($reviews as $row){
+        echo '<div class="col-sm-12 col-md-4">';
+        echo '<div class="card h-100">';
+            echo '<div class="card-header custom-colors">';
+                echo 'Review ID: ' . $row['id'];
+            echo '</div>';
+            echo '<div class="card-body custom-colors">';
+                echo '<h5 class="card-title">'. $row['rating'] .' stars</h5>';
+                echo '<p class="card-text">'. $row['reviewText'] .'</p>';
+            echo '</div>';
+            
+	    echo '</div>';
+        
+	  echo '</div>';
+        }
+      ?>
+    </div>
+
+    <div class="container-fluid">
 		<div class="row">
 			<div class="main-view landingPadding">
-			<?php
-    foreach ($reviews as $row) {
-        echo "Review ID: " . $row['id'] . "<br>";
-        echo "Rating: " . $row['rating'] . " stars<br>";
-        echo "Review: " . $row['reviewText'] . "<br><br>";
-    }
-    ?>
 
     <!-- Pagination links -->
     <div class="pagination">
@@ -53,7 +65,20 @@ $reviews = $pdo->query($query);
 		</div>
 	</div>
 	<!-- End main container -->
-
+    <div class="row container-fluid serviceCards">
+	  <div class="col-sm-12 col-md-4">
+	    <div class="card h-100">
+            <div class="card-header custom-colors">
+                Header
+            </div>
+	      <div class="card-body custom-colors">
+	        <h5 class="card-title">Featured Item 1</h5>
+	        <p class="card-text">description of item</p>
+			<!-- <a href="featured1.php" class="btn btn-light">Add to Cart</a> -->
+	      </div>
+	    </div>
+	  </div>
+    </div>
 
 <?php
 include_once 'footer.php';
