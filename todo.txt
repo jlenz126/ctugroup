@@ -4,9 +4,6 @@ REMAINING BACKLOG:
 
 -13.1 Create page to take payment input (Felicia)
     - Pages were created in sprint 1, but need to be cleaned up
--13.2 checkout_processor.php (Jacob)
-    - Create code that takes POST data from checkout.php and form it into a JSON file
-    - Prepare JSON to be 'sent' to third party payment processing
 -16.1 Add inventory to system (Garret)
     - add quantity column to items
         - Default amount is 100
@@ -24,6 +21,7 @@ CODE FIXES:
 OTHER ISSUES:
 
 - display reviews in cards
+- Once 16.1 is done remove items from inventory during checkout in checkout_processor (Jacob)
 
 WHOLE TEAM:
 
