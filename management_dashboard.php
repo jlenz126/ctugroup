@@ -36,6 +36,14 @@ if(isset($_POST['manageActivity'])){
         case 'managePrivileges':
             $caseID = $_POST['manageActivity'];
             break;
+        case 'addRights':
+            $selectedUserId = $_POST['user_id'];
+            $stmt = $conn->prepare("UPDATE user SET employee = 1 WHERE id = ?");
+            $stmt->bind_param("i", $selectedUserId);
+            $stmt->execute();
+            $outputMessage = 'Rights Granted';
+            $caseID = 12;
+            break;
         default:
             $outputMessage = 'error manageactivity';
             $caseID = 'error';
@@ -62,19 +70,33 @@ if(isset($_POST['manageActivity'])){
                                     <div class="form-button text-center">
                                         <input type="submit" value="Access" class="btn btn-light btn-lg">
                                     </div>
-                                    <!-- <input type="hidden" id="itemDescription" name="itemDescription" value="">
-                                    <input type="hidden" id="itemPrice" name="itemPrice" value="10">
-                                    <input type="hidden" id="categoryID" name="categoryID" value="2">
-                                    <input type="hidden" id="process" name="process" value="2"> -->
                                     <?php
                             break;
                         case 'activeOrders':
-                            echo 'activeOrders';
-                            header("Refresh:3; url=management_dashboard.php");
+                            echo 'will display active orders'; // add active orders feature
+                            header("Refresh:3; url=management_dashboard.php"); //temp for testing
                             break;
                         case 'managePrivileges':
-                            echo 'managePrivileges';
-                            header("Refresh:3; url=management_dashboard.php");
+                            $userQuery = "SELECT id, lastname, firstname FROM user WHERE employee = 0"; // Fetch users who are not employees
+                            $result = $conn->query($userQuery);
+
+                            if ($result->num_rows > 0) {
+                                echo '<form action="management_dashboard.php" method="post">';
+                                echo "<label for='user_id'>Select User:</label>";
+                                echo "<select  class='form-select form-select-lg mb-3' aria-label='Large select example' name='user_id'>";
+                                while ($row = $result->fetch_assoc()) {
+                                    echo "<option value='" . $row['id'] . "'>" . $row['lastname'] . ", " . $row['firstname'] ."</option>";
+                                }
+                                echo "</select><br>";
+                                echo '<div class="form-button text-center">';
+                                        echo '<input type="submit" value="Grant Employee Access" class="btn btn-light btn-lg">';
+                                echo '</div>';
+                                echo '<input type="hidden" id="manageActivity" name="manageActivity" value="addRights">';
+                                echo "</form>";
+                            } else {
+                                echo "No users are available to assign employee access.";
+                                header("Refresh:3; url=management_dashboard.php");
+                            }
                             break;
                         default:
                             echo 'default <br>';
