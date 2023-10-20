@@ -25,6 +25,8 @@ CODE FIXES:
 
 OTHER ISSUES:
 
+- display reviews in cards
+
 WHOLE TEAM:
 
 - proofread website for errors
