@@ -17,7 +17,7 @@ $query = "SELECT * FROM reviews ORDER BY rating DESC LIMIT $offset, $reviewsPerP
 $reviews = $pdo->query($query);
 ?>
 
-    <div class="row container-fluid serviceCards landingPadding">
+    <div class="row container-fluid serviceCards">
 	<?php
         foreach ($reviews as $row){
         echo '<div class="col-sm-12 col-md-4">';
@@ -39,46 +39,27 @@ $reviews = $pdo->query($query);
 
     <div class="container-fluid">
 		<div class="row">
-			<div class="main-view landingPadding">
+			<div class="text-center">
+                    <?php
+                    
+                    $totalReviewsQuery = "SELECT COUNT(*) AS total FROM reviews";
+                    $totalReviewsResult = $pdo->query($totalReviewsQuery);
+                    $totalReviews = $totalReviewsResult->fetch(PDO::FETCH_ASSOC)['total'];
 
-    <!-- Pagination links -->
-    <div class="pagination">
-        <?php
-        
-        $totalReviewsQuery = "SELECT COUNT(*) AS total FROM reviews";
-        $totalReviewsResult = $pdo->query($totalReviewsQuery);
-        $totalReviews = $totalReviewsResult->fetch(PDO::FETCH_ASSOC)['total'];
+                    
+                    $totalPages = ceil($totalReviews / $reviewsPerPage);
 
-        
-        $totalPages = ceil($totalReviews / $reviewsPerPage);
-
-       
-        for ($i = 1; $i <= $totalPages; $i++) {
-            echo "<a href='?page=$i'>$i</a> ";
-        }
-        ?>
-    </div>
-
-    <!-- Button to take customers to the review form -->
-    <a href="review_form.php">Leave a Review</a>
+                
+                    for ($i = 1; $i <= $totalPages; $i++) {
+                        echo "<a class='btn btn-light btn-sm' href='?page=$i'>$i</a> ";
+                    }
+                    ?>
+                <!-- Button to take customers to the review form -->
+                <br>
+                <a class="btn btn-light" href="review_form.php" role="button">Leave a Review</a>
 			</div>
 		</div>
 	</div>
-	<!-- End main container -->
-    <div class="row container-fluid serviceCards">
-	  <div class="col-sm-12 col-md-4">
-	    <div class="card h-100">
-            <div class="card-header custom-colors">
-                Header
-            </div>
-	      <div class="card-body custom-colors">
-	        <h5 class="card-title">Featured Item 1</h5>
-	        <p class="card-text">description of item</p>
-			<!-- <a href="featured1.php" class="btn btn-light">Add to Cart</a> -->
-	      </div>
-	    </div>
-	  </div>
-    </div>
 
 <?php
 include_once 'footer.php';
