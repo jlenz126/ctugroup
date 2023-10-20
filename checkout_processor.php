@@ -5,7 +5,7 @@ include_once 'db_connection.php';
 $conn = OpenCon();
 $paymentType = null;
 $displayMessage = 'null';
-$orderID = 1; //test set to null for deployment
+$orderID = 1; //test set to 1 set to null for deployment
 $checkoutDetails = [];
 
 // commented out for testing purposes
