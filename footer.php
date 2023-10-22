@@ -2,7 +2,7 @@
 <nav class="navbar navbar-dark fixed-bottom custom-colors ">
 	  <div class="container-fluid justify-content-center">
 	    <!-- Text and copyright for footer -->
-	  	<center><h6 style="color: white">OvenWhisperer Pizza &copy; 2023</h6></center>
+	  	<center><h6 style="color: white">Designed by CTU Group 5. All rights reserved. &copy; 2023</h6></center>
 	  </div>
 	</nav>
 	<!-- Jquery and Bootstrap javascript import -->
