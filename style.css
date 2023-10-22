@@ -4,6 +4,7 @@
 
 body {
 	background-color: rgb(212,106,106);
+	background-image: url(images/redwall.jpg);
 }
 
 .main-view {
@@ -13,10 +14,10 @@ body {
 	align-items: center;
 }
 .showcase video{
-	width: 100%;
+	max-width: 100%;
 	height: 100%;
 	z-index: -1;
-	opacity: 0.6;
+	
 }
 .main-card {
 	display: flex;
@@ -35,7 +36,7 @@ body {
 		margin-top: 200px;
 	}
 	.landingPadding {
-		margin-top: 200px;
+		margin-top: 50px;
 		margin-right: 80px;
 	}
 	.img-responsive{
@@ -48,14 +49,14 @@ body {
 
 @media only screen and (min-width: 768px){
 	.landingPadding {
-		margin-top: 375px;
+		margin-top: 50px;
 		margin-right: 80px;
 	}
 }
 
-@media only screen and (min-width: 923px) {
+@media only screen and (min-width: 1024px) {
 	.landingPadding {
-		margin-top: 310px;
+		margin-top: 160px;
 		margin-right: 80px;
 	}
 }
@@ -69,7 +70,7 @@ body {
 
 @media only screen and (max-width: 401px) {
 	.serviceCards {
-		padding-top: 50px;
+		padding-top: 200px;
 		padding-bottom: 100px;
 	}
 }
@@ -114,3 +115,24 @@ body {
 	margin-bottom: 20px;
 }
 
+.social {
+	position: absolute;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	
+}
+.social li{
+	list-style: none;
+	display: inline-block;
+}
+
+.social li a {
+	display: inline-block;
+	transform: scale(0.5);
+	transition: 0.2s;
+}
+
+.social li a:hover{
+	transform: scale(0.5) translateY(-15px);
+}
