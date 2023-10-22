@@ -3,7 +3,7 @@ global $conn;
 include_once 'session.php';
 include_once 'header.php';
 include_once 'navbar.php';
-include_once 'db_connection.php';
+include_once 'db_connection2.php';
 
 $message = '';
 
@@ -38,30 +38,36 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             // Insert address after the user registration is successful
             $userId = $conn->insert_id;
 
-            // Insert the shipping address
-            $stmtAddress = $conn->prepare("INSERT INTO address (customer_id, line1, line2, city, country, zipcode, created_at) VALUES (?, ?, ?, ?, ?, ?, NOW())");
-            $stmtAddress->bind_param("issssi", $userId, $line1, $line2, $city, $country, $zipcode);
-
-            if ($stmtAddress->execute()) {
-                $message = "<span style='font-size: 1.5em; color: white;'>Registration successful! <a href='login.php'>Click here to login.</a></span>";
-
-                // Check if billing address is different and insert it
-                if (isset($_POST['billingLine1']) && !empty($_POST['billingLine1'])) {
-                    $billingLine1 = $_POST['billingLine1'];
-                    $billingLine2 = $_POST['billingLine2'];
-                    $billingCity = $_POST['billingCity'];
-                    $billingCountry = $_POST['billingCountry'];
-                    $billingZipcode = $_POST['billingZipcode'];
-
-                    $stmtBillingAddress = $conn->prepare("INSERT INTO address (customer_id, line1, line2, city, country, zipcode, created_at) VALUES (?, ?, ?, ?, ?, ?, NOW())");
-                    $stmtBillingAddress->bind_param("issssi", $userId, $billingLine1, $billingLine2, $billingCity, $billingCountry, $billingZipcode);
-
-                    if (!$stmtBillingAddress->execute()) {
-                        $message .= " However, there was an error saving your billing address.";
-                    }
+            // Determine if billing address is different
+            if (isset($_POST['billingLine1']) && !empty($_POST['billingLine1'])) {
+                // Insert home address
+                $addressTypeHome = 'home';
+                $stmtAddressHome = $conn->prepare("INSERT INTO address (customer_id, line1, line2, city, country, zipcode, address_type, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, NOW())");
+                $stmtAddressHome->bind_param("issssss", $userId, $line1, $line2, $city, $country, $zipcode, $addressTypeHome);
+                if ($stmtAddressHome->execute()) {
+                    $message = "<span style='font-size: 1.5em; color: white;'>Registration successful! <a href='login.php'>Click here to login.</a></span>";
                 }
+
+                // Insert billing address
+                $addressTypeBilling = 'billing';
+                $billingLine1 = $_POST['billingLine1'];
+                $billingLine2 = $_POST['billingLine2'];
+                $billingCity = $_POST['billingCity'];
+                $billingCountry = $_POST['billingCountry'];
+                $billingZipcode = $_POST['billingZipcode'];
+
+                $stmtBillingAddress = $conn->prepare("INSERT INTO address (customer_id, line1, line2, city, country, zipcode, address_type, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, NOW())");
+                $stmtBillingAddress->bind_param("issssss", $userId, $billingLine1, $billingLine2, $billingCity, $billingCountry, $billingZipcode, $addressTypeBilling);
+                $stmtBillingAddress->execute();
+
             } else {
-                $message = "Error occurred during registration!";
+                // If billing address is not different, insert one row with both 'home' and 'billing' as address types
+                $addressTypeBoth = 'home,billing';
+                $stmtAddressBoth = $conn->prepare("INSERT INTO address (customer_id, line1, line2, city, country, zipcode, address_type, created_at) VALUES (?, ?, ?, ?, ?, ?, ?, NOW())");
+                $stmtAddressBoth->bind_param("issssss", $userId, $line1, $line2, $city, $country, $zipcode, $addressTypeBoth);
+                if ($stmtAddressBoth->execute()) {
+                    $message = "<span style='font-size: 1.5em; color: white;'>Registration successful! <a href='login.php'>Click here to login.</a></span>";
+                }
             }
         } else {
             $message = "Error occurred during registration!";
@@ -189,3 +195,4 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <?php
 include_once 'footer.php';
 ?>
+
