@@ -10,9 +10,15 @@ include_once 'navbar.php';
 			<div class="main-view landingPadding">
 				<!-- Add logo and restaurant here <h1> is just a place holder -->
 				<body>
-				<section class="showcase">
-           				<video autoplay loop muted playsinline><source src="video/pizza_oven2.mp4" alt="video"></video>
-				</section>
+					<div class="image">
+						<section class="showcase">
+							<header>
+								<center><h1 style="color:white;" class="logo">OvenWhisperer Pizza</h1></center>
+								<video src="video/pizza_oven2.mp4" alt="video" autoplay loop muted playinline></video>
+								<center><h5 style="color:white;">Where Every Click Unlocks the Cozy Crust, Flavorful Toppings, and Irresistable Charms of our Pizzas!</h5></center>
+							</header>
+						</section>
+					</div>
 				</body>
 			</div>
 		</div>
@@ -74,6 +80,16 @@ include_once 'navbar.php';
 	  </div>
 	</div>
 	<!-- End of Service Cards -->
+
+	<!-- Start of Social -->
+	<div class="social">
+		<ul>
+			<li><a href="#"><img src="images/facebook_tp.png" alt="facebook"></a></li>
+			<li><a href="#"><img src="images/instagram.png" alt="instagram"></a></li>
+			<li><a href="#"><img src="images/twitter.png" alt="twitter"></a></li>
+		</ul>
+	</div>
+	<!-- End of Social -->
 
 <?php
 include_once 'footer.php';
