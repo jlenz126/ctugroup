@@ -84,15 +84,15 @@ include_once 'navbar.php';
 	<!-- Start of Social -->
 	<div class="container-fluid">
 		<div class="row">
-	<div class="social">
-		<ul>
-			<li><a href="#"><img src="images/facebook_tp.png" alt="facebook"></a></li>
-			<li><a href="#"><img src="images/instagram.png" alt="instagram"></a></li>
-			<li><a href="#"><img src="images/twitter.png" alt="twitter"></a></li>
-		</ul>
+			<div class="social">
+				<ul>
+					<li><a href="#"><img src="images/facebook_tp.png" alt="facebook"></a></li>
+					<li><a href="#"><img src="images/instagram.png" alt="instagram"></a></li>
+					<li><a href="#"><img src="images/twitter.png" alt="twitter"></a></li>
+				</ul>
+			</div>
+		</div>
 	</div>
-	</div>
-</div>
 	<!-- End of Social -->
 
 
