@@ -15,7 +15,7 @@ if(isset($_SESSION['currentOrderID'])){
 	<!-- Main container of page -->
 	<div class="container-fluid">
 		<div class="row">
-			<div class="main-view landingPadding">
+			<div class="main-view landingPadding checkout-padding">
             <form action="checkout_processor.php" method="POST">
                 <div class="form-element">
                     <label for="name">Name</label>
@@ -57,7 +57,7 @@ if(isset($_SESSION['currentOrderID'])){
                     <label for="cvc">CVC Number</label>
                     <input type="text" id="cvc" name="cvc" required class="form-control">
                 </div>
-                <div class="form-button text-center">
+                <div class="form-button text-center button-padding">
                     <input type="submit" value="Pay" class="btn btn-light btn-lg">
 					<input type="reset" value="Clear" class="btn btn-light btn-lg">
                 </div>
@@ -67,7 +67,11 @@ if(isset($_SESSION['currentOrderID'])){
 	</div>
 	<!-- End main container -->
 
-
+	<style>
+		body {
+			background-image: none;			
+		}
+	</style>
 <?php
 include_once 'footer.php';
 ?>

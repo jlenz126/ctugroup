@@ -231,7 +231,7 @@ if($process == 5){
 	<!-- Main container of page -->
 	<div class="container-fluid">
 		<div class="row">
-			<div class="main-view landingPadding"> <!--fix css for different screen sizes -->
+			<div class="main-view form-padding"> 
                 <?php
 
                 if(isset($_POST['categoryID'])){

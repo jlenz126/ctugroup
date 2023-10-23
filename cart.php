@@ -97,8 +97,15 @@ if(isset($_POST['itemID'])){
 			</div>
 		</div>
 	</div>
-	<!-- End main container -->
+	<div class="bottom-padding">
 
+				</div>
+	<!-- End main container -->
+	<style>
+		body {
+			background-image: none;			
+		}
+	</style>
 
 <?php
 include_once 'footer.php';

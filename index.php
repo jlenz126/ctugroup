@@ -9,7 +9,7 @@ include_once 'navbar.php';
 		<div class="row">
 			<div class="main-view landingPadding">
 				<!-- Add logo and restaurant here <h1> is just a place holder -->
-				<body>
+				<!-- <body> -->
 					<div class="image">
 						<section class="showcase">
 							<header>
@@ -19,14 +19,14 @@ include_once 'navbar.php';
 							</header>
 						</section>
 					</div>
-				</body>
+				<!-- </body> -->
 			</div>
 		</div>
 	</div>
 	<!-- End main container -->
 
 	<!-- Start of Service Cards -->
-	<div class="row container-fluid serviceCards">
+	<!-- <div class="row container-fluid serviceCards">
 	  <div class="col-sm-12 col-md-4">
 	    <div class="card h-100">
 	      <div class="card-body custom-colors">
@@ -78,10 +78,12 @@ include_once 'navbar.php';
 	      </div>
 	    </div>
 	  </div>
-	</div>
+	</div> -->
 	<!-- End of Service Cards -->
 
 	<!-- Start of Social -->
+	<div class="container-fluid">
+		<div class="row">
 	<div class="social">
 		<ul>
 			<li><a href="#"><img src="images/facebook_tp.png" alt="facebook"></a></li>
@@ -89,7 +91,10 @@ include_once 'navbar.php';
 			<li><a href="#"><img src="images/twitter.png" alt="twitter"></a></li>
 		</ul>
 	</div>
+	</div>
+</div>
 	<!-- End of Social -->
+
 
 <?php
 include_once 'footer.php';

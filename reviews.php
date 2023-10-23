@@ -20,8 +20,8 @@ $reviews = $pdo->query($query);
     <div class="row container-fluid serviceCards">
 	<?php
         foreach ($reviews as $row){
-        echo '<div class="col-sm-12 col-md-4">';
-        echo '<div class="card h-100">';
+        echo '<div class="col-sm-12 col-md-4 card-margin">';
+        echo '<div class="card h-100 border-light">';
             echo '<div class="card-header custom-colors">';
                 echo 'Review ID: ' . $row['id'];
             echo '</div>';

@@ -68,6 +68,15 @@ body {
 	padding-right: 20px;
 }
 
+.card-margin {
+	padding-bottom: 20px;
+}
+
+.form-padding {
+	padding-top: 350px;
+	padding-bottom: 200px;
+}
+
 @media only screen and (max-width: 401px) {
 	.serviceCards {
 		padding-top: 200px;
@@ -128,7 +137,8 @@ body {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	
+	padding-top: 350px;
+	padding-bottom: 50px;
 }
 .social li{
 	list-style: none;
@@ -143,4 +153,13 @@ body {
 
 .social li a:hover{
 	transform: scale(0.5) translateY(-15px);
+}
+
+.button-padding {
+	margin-top: 15px;
+}
+
+.checkout-padding {
+	padding-top: 400px;
+	padding-bottom: 450px;
 }

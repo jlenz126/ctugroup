@@ -49,6 +49,11 @@ include_once 'navbar.php';
     </div>
 </div>
 <!-- End main container -->
+<style>
+    body {
+        background-image: none;			
+    }
+</style>
 <?php
 include_once 'footer.php';
 ?>

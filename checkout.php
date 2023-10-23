@@ -33,7 +33,7 @@ if(!isset($_SESSION['user_id'])){
                     <label for="cvc">CVC Number</label>
                     <input type="text" id="cvc" name="cvc" required class="form-control">
                 </div>
-                <div class="form-button text-center">
+                <div class="form-button text-center button-padding">
                     <input type="submit" value="Pay" class="btn btn-light btn-lg">
 					<input type="reset" value="Clear" class="btn btn-light btn-lg">
                 </div>
@@ -43,7 +43,11 @@ if(!isset($_SESSION['user_id'])){
 	</div>
 	<!-- End main container -->
 
-
+	<style>
+		body {
+			background-image: none;			
+		}
+	</style>
 <?php
 include_once 'footer.php';
 ?>

@@ -164,7 +164,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 </script>
 
                 <div class="mt-3">
-                    <button type="submit" class="btn btn-primary">Register</button>
+                    <button type="submit" class="btn btn-light btn-lg">Register</button>
                 </div>
             </form>
         </div>
@@ -178,6 +178,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     body {
         padding-top: 75px; /* Adjusted based on navbar's height */
         padding-bottom: 75px;
+        background-image: none;
     }
     .main-view {
         max-width: 600px;
