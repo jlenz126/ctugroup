@@ -28,7 +28,7 @@ include_once 'navbar.php';
         <div class="main-view landingPadding">
 
             <!-- Contact Box -->
-            <div class="contact-box">
+            <div class="contact-box contact-background">
 
                 <!-- Address -->
                 <h2>Address</h2>

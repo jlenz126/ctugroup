@@ -37,7 +37,7 @@ $reviews = $pdo->query($query);
       ?>
     </div>
 
-    <div class="container-fluid">
+    <div class="container-fluid bottom-padding">
 		<div class="row">
 			<div class="text-center">
                     <?php
