@@ -30,6 +30,11 @@ include_once 'navbar.php';
             </div>
         </div>
     </div>
+    <style>
+    body {
+        background-image: none;			
+    }
+</style>
 <?php
 include_once 'footer.php';
 ?>
