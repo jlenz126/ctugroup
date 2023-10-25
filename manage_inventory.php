@@ -51,12 +51,13 @@ $result_items = $conn->query($sql_items);
 
     <style>
         body {
-            padding-top: 450px;
+            padding-top: 500px;
+            padding-bottom: 500px;
         }
 
         .main-view {
             max-width: 800px;
-            width: 100%; /* Ensuring it takes the full width available */
+            width: 100%;
         }
     </style>
 
