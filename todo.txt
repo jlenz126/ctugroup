@@ -4,9 +4,6 @@ REMAINING BACKLOG:
 
 -13.1 Create page to take payment input (Felicia)
     - Pages were created in sprint 1, but need to be cleaned up
--16.2 Integrate Inventory system 
-    - have item quantities reduced when purchase is completed
-	- Can't complete until 15.2 and 16.1 is completed
 
 CODE FIXES:
 
@@ -14,8 +11,6 @@ CODE FIXES:
 - check CSS on each page for different device types (Mark)
 
 OTHER ISSUES:
-
-- Once 16.1 is done remove items from inventory during checkout in checkout_processor (Jacob)
 
 WHOLE TEAM:
 
