@@ -7,7 +7,6 @@ REMAINING BACKLOG:
 
 CODE FIXES:
 
-- clean up SQL querys in add_to_cart.php (Jacob)
 - check CSS on each page for different device types (Mark)
 
 OTHER ISSUES:
