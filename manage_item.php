@@ -5,6 +5,15 @@ include_once 'navbar.php';
 include_once 'db_connection.php';
 $conn = OpenCon();
 
+// Check if admin rights
+if(isset($_SESSION['employee'])){
+    if($_SESSION['employee'] != 1){
+        header('Location: index.php');
+    }
+}else{
+    header('Location: index.php');
+}
+
 $sql_categories = "SELECT id, category_name FROM category WHERE 1 ORDER BY display_order";
 $result_categories = $conn->query($sql_categories);
 

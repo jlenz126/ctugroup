@@ -1,4 +1,14 @@
 <?php
+include_once 'session.php';
+// Check if admin rights
+if(isset($_SESSION['employee'])){
+    if($_SESSION['employee'] != 1){
+        header('Location: index.php');
+    }
+}else{
+    header('Location: index.php');
+}
+
 include_once 'db_connection.php';
 $conn = OpenCon();
 

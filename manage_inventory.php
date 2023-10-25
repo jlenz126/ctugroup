@@ -5,6 +5,15 @@ include_once 'navbar.php';
 include_once 'db_connection.php';
 $conn = OpenCon();
 
+// Check if admin rights
+if(isset($_SESSION['employee'])){
+    if($_SESSION['employee'] != 1){
+        header('Location: index.php');
+    }
+}else{
+    header('Location: index.php');
+}
+
 $sql_items = "SELECT `id`, `item_name`, `category_id`, `quantity` FROM `item`";
 $result_items = $conn->query($sql_items);
 ?>
