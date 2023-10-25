@@ -5,15 +5,14 @@ include_once 'db_connection.php';
 $conn = OpenCon();
 $paymentType = null;
 $displayMessage = 'null';
-$orderID = 1; //test set to 1 set to null for deployment
+$orderID = null; //test set to 1 set to null for deployment
 $checkoutDetails = [];
 
-// commented out for testing purposes
-// if(isset($_SESSION['currentOrderID'])){
-// 	$orderID = $_SESSION['currentOrderID'];
-// } else {
-//     header('Location: index.php'); // redirect if no orderID
-// }
+if(isset($_SESSION['currentOrderID'])){
+	$orderID = $_SESSION['currentOrderID'];
+} else {
+    header('Location: index.php'); // redirect if no orderID
+}
 
 $sql_get_order_details = "SELECT * FROM `order` WHERE id=$orderID";
 $result_order = $conn->query($sql_get_order_details);
@@ -68,6 +67,22 @@ json_encode($checkoutDetails);
 
 //Code to transfer order to management dashoboard
 
+//Code to update quantity
+
+$sql_order_items = "SELECT `item_id` FROM `order_item` WHERE `order_id` = $orderID";
+$result_order_item = $conn->query($sql_order_items);
+
+if($result_order_item->num_rows > 0){
+    while ($row = $result_order_item->fetch_assoc()){
+        $itemID = $row['item_id'];
+        $sql_item_quantity = "SELECT `quantity` FROM `item` WHERE `id` = $itemID";
+        $result_item_quantity = $conn->query($sql_item_quantity);
+        $itemQuantity = ($result_item_quantity->fetch_row()[0]) - 1;
+        $sql_update_quantity = $conn->prepare("UPDATE `item` SET `quantity` = ? WHERE `item`.`id` = ?");
+        $sql_update_quantity->bind_param("ii", $itemQuantity, $itemID);
+        $sql_update_quantity->execute();
+    }
+}
 
 ?>
 
@@ -78,7 +93,7 @@ json_encode($checkoutDetails);
 				<!-- Content here -->
                 <?php
                 echo $displayMessage .  '<br>';
-                echo print_r($checkoutDetails);
+                //echo print_r($checkoutDetails);
                 //header("Refresh:3; url=index.php");
                 ?>
 			</div>
@@ -86,7 +101,11 @@ json_encode($checkoutDetails);
 	</div>
 	<!-- End main container -->
 
-
+    <style>
+    body {
+        background-image: none;			
+    }
+    </style>
 <?php
 CloseCon($conn);
 include_once 'footer.php';
