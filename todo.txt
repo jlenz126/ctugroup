@@ -2,9 +2,6 @@ SPRINT 2 TODO LIST:
 
 REMAINING BACKLOG:
 
--13.1 Create page to take payment input (Felicia)
-    - Pages were created in sprint 1, but need to be cleaned up
-
 CODE FIXES:
 
 - check CSS on each page for different device types (Mark)
