@@ -36,6 +36,11 @@ body {
 	font-family: 'Open Sans', sans-serif;
 }
 
+.paymentPadding{
+	margin-top: 250px;
+	padding-bottom: 250px;
+}
+
 /*set logo top margin for larger screens*/
 @media only screen and (min-width: 280px) {
 	.logo {
@@ -166,6 +171,6 @@ body {
 }
 
 .checkout-padding {
-	padding-top: 400px;
+	padding-top: 450px;
 	padding-bottom: 450px;
 }

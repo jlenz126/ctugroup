@@ -17,12 +17,12 @@ if(isset($_SESSION['currentOrderID'])){
 $sql_get_order_details = "SELECT * FROM `order` WHERE id=$orderID";
 $result_order = $conn->query($sql_get_order_details);
 
-if(isset($_POST['paymentType'])){ //gets payment type
-    switch($_POST['paymentType']){
+if(isset($_POST['paymentMethod'])){ //gets payment type
+    switch($_POST['paymentMethod']){
         case 'cash':
             $paymentType = 'cash';
             break;
-        case 'card':
+        case 'credit':
             $paymentType = 'card';
             (isset($_POST['cardNumber'])) ? $checkoutDetails['cardNumber'] = $_POST['cardNumber'] :  $checkoutDetails['cardNumber'] = '';
             (isset($_POST['exp'])) ? $checkoutDetails['exp'] = $_POST['exp'] :  $checkoutDetails['exp'] = '';
