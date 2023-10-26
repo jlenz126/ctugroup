@@ -46,7 +46,7 @@ $conn = OpenCon();
               echo '<div id="' . $category_name_cleaned . '" class="accordion-collapse collapse" data-bs-parent="#MenuAccordion">';
                 echo '<div class="accordion-body">';
                   echo '<div class="row container-fluid menu-cards">';
-                    $sql_item = "SELECT id, item_name, item_description, item_price FROM `item` WHERE category_id = '$category_id'";
+                    $sql_item = "SELECT id, item_name, item_description, item_price, image_path FROM `item` WHERE category_id = '$category_id'";
                     $result_item = $conn->query($sql_item);
                     while($row2 = $result_item->fetch_assoc()){
                       $item_name_display = ucwords(strtolower($row2['item_name']));
@@ -56,6 +56,13 @@ $conn = OpenCon();
                       
                       echo '<div class="col-sm-12 col-md-4">';
 	                      echo '<div class="card h-100">';
+                        if($category_id == 2){
+                          if(empty($row2['image_path'])){
+                            echo '<img src="images/defaultpizza2.jpg" class="card-img-top" alt="picture of pizza">';
+                          } else {
+                            echo '<img src="images/'. $row2['image_path'] .'" class="card-img-top" alt="picture of pizza">';
+                          }
+                        }
 	                        echo '<div class="card-body">';
 	                          echo '<h5 class="card-title">'.$item_name_display.'</h5>';
                             echo '<h5 class="card-title">Price: $'.$item_price.'</h5>';
