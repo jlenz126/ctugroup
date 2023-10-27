@@ -23,7 +23,7 @@ if(isset($_POST['manageActivity'])){
 
     switch($_POST['manageActivity']){
         case 'activeOrders':
-            $caseID = $_POST['manageActivity'];
+            header('Location: active_orders.php');
             break;
         case 'manageItem':
             header('Location: manage_item.php');
