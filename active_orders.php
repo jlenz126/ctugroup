@@ -7,13 +7,13 @@ $conn = OpenCon();
 $deleted = 0;
 
 // Check if admin rights commented out for testing
-// if(isset($_SESSION['employee'])){
-//     if($_SESSION['employee'] != 1){
-//         header('Location: index.php');
-//     }
-// }else{
-//     header('Location: index.php');
-// }
+if(isset($_SESSION['employee'])){
+    if($_SESSION['employee'] != 1){
+        header('Location: index.php');
+    }
+}else{
+    header('Location: index.php');
+}
 
 if(isset($_POST['orderID'])){
     $orderID = $_POST['orderID'];
