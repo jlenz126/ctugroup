@@ -56,9 +56,18 @@ $conn = OpenCon();
                       
                       echo '<div class="col-sm-12 col-md-4">';
 	                      echo '<div class="card h-100">';
-                        if($category_id == 2){
+                        if($category_id == 2 || $category_id == 1){
                           if(empty($row2['image_path'])){
-                            echo '<img src="images/defaultpizza2.jpg" class="card-img-top" alt="picture of pizza">';
+                            switch($category_id){
+                              case 1:
+                                //echo '<img src="images/defaultpizza2.jpg" class="card-img-top" alt="picture of pizza">';
+                                break;
+                              case 2:
+                                echo '<img src="images/defaultpizza2.jpg" class="card-img-top" alt="picture of pizza">';
+                                break;
+                              default:
+                            }
+                            
                           } else {
                             echo '<img src="images/'. $row2['image_path'] .'" class="card-img-top" alt="picture of pizza">';
                           }
