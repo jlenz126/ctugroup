@@ -60,10 +60,10 @@ $conn = OpenCon();
                           if(empty($row2['image_path'])){
                             switch($category_id){
                               case 1:
-                                echo '<img src="images/noimage.jpeg" class="card-img-top" alt="picture of pizza">';
+                                echo '<img src="images/noimage.jpeg" class="card-img-top img-thumbnail" alt="no image found" style="width:250px;height:250px">';
                                 break;
                               case 2:
-                                echo '<img src="images/defaultpizza2.jpg" class="card-img-top" alt="picture of pizza">';
+                                echo '<img src="images/defaultpizza2.jpg" class="card-img-top img-thumbnail" alt="picture of pizza" style="width:250px;height:250px">';
                                 break;
                               default:
                             }
@@ -71,10 +71,10 @@ $conn = OpenCon();
                           } else {
                             switch($category_id){
                               case 1:
-                                echo '<img src="images/'. $row2['image_path'] .'" class="card-img-top" alt="picture of pizza">';
+                                echo '<img src="images/'. $row2['image_path'] .'" class="card-img-top img-thumbnail" alt="picture of appetizer" style="width:250px;height:250px">';
                                 break;
                               case 2:
-                                echo '<img src="images/'. $row2['image_path'] .'" class="card-img-top" alt="picture of pizza">';
+                                echo '<img src="images/'. $row2['image_path'] .'" class="card-img-top" alt="picture of pizza img-thumbnail" style="width:250px;height:250px">';
                                 break;
                               default:
                           }
