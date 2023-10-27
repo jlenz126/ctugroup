@@ -4,7 +4,7 @@ include_once 'header.php';
 include_once 'db_connection.php';
 $conn = OpenCon();
 $paymentType = null;
-$displayMessage = 'null';
+$displayMessage = 'Order Placed';
 $orderID = null; //test set to 1 set to null for deployment
 $checkoutDetails = [];
 
@@ -84,6 +84,9 @@ if($result_order_item->num_rows > 0){
     }
 }
 
+$sql_set_order_id = $conn->prepare("UPDATE `order` SET `fulfilled` = 1 WHERE `order`.`id` = ?");
+$sql_set_order_id->bind_param("i", $orderID);
+$sql_set_order_id->execute();
 ?>
 
 	<!-- Main container of page -->
@@ -94,7 +97,7 @@ if($result_order_item->num_rows > 0){
                 <?php
                 echo $displayMessage .  '<br>';
                 //echo print_r($checkoutDetails);
-                //header("Refresh:3; url=index.php");
+                header("Refresh:3; url=index.php");
                 ?>
 			</div>
 		</div>
