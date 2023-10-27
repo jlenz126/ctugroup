@@ -28,6 +28,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $_SESSION['username'] = $username;
             $_SESSION['employee'] = $row['employee'];
 
+            if(isset($_SESSION['currentOrderID'])){
+                $userID = (int)$_SESSION['user_id'];
+                $orderID = (int)$_SESSION['currentOrderID'];
+                $sql_set_order_id = $conn->prepare("UPDATE `order` SET `customer_id` = ? WHERE `order`.`id` = ?");
+                $sql_set_order_id->bind_param("ii", $userID, $orderID);
+                $sql_set_order_id->execute();
+            }
+
             // Redirect to a dashboard or main page, for example
             if($_SESSION['employee'] == 1){
                 header('Location: management_dashboard.php');
