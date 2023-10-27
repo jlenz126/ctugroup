@@ -78,7 +78,7 @@ $conn = OpenCon();
                                 break;
                               default:
                           }
-                        }
+                        }}
 	                        echo '<div class="card-body">';
 	                          echo '<h5 class="card-title">'.$item_name_display.'</h5>';
                             echo '<h5 class="card-title">Price: $'.$item_price.'</h5>';
