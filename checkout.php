@@ -76,6 +76,9 @@ echo '<script>
 			background-image: none;			
 		}
 	</style>
+    <script text="text/javascript">
+		window.onload = () => alert('Please do not enter valid credit card information, this form is for testing purposes. You are welcome to enter fake info.');
+	</script>
 <?php
 include_once 'footer.php';
 ?>

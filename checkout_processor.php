@@ -4,7 +4,7 @@ include_once 'header.php';
 include_once 'db_connection.php';
 $conn = OpenCon();
 $paymentType = null;
-$displayMessage = 'Order Placed';
+$displayMessage = 'Order Placed Remember this is a fake restaurant';
 $orderID = null; //test set to 1 set to null for deployment
 $checkoutDetails = [];
 

@@ -23,6 +23,7 @@ include_once 'navbar.php';
 			</div>
 		</div>
 	</div>
+
 	<!-- End main container -->
 
 	<!-- Start of Service Cards -->
@@ -94,6 +95,9 @@ include_once 'navbar.php';
 		</div>
 	</div>
 	<!-- End of Social -->
+	<script text="text/javascript">
+		window.onload = () => alert('This is a fake restaurant created by CTU Group 5');
+	</script>
 
 
 <?php
