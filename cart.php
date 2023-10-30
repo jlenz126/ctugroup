@@ -37,7 +37,7 @@ if(isset($_POST['itemID'])){
 	<!-- Main container of page -->
 	<div class="container-fluid">
 		<div class="row">
-			<div class="main-view landingPadding">
+			<div class="cart">
 				<?php
 					switch ($activeOrderID){
 						case 0:

@@ -5,7 +5,7 @@ include_once 'navbar.php';
 ?>
     <div class="container mt-5">
         <div class="row justify-content-center">
-            <div class="col-12 col-md-8 col-lg-6 landingPadding">
+            <div class="col-12 col-md-8 col-lg-6">
                 <h2>Leave a Review</h2>
 
                 <form action="review_processor.php" method="POST" class="mt-3">
@@ -32,8 +32,17 @@ include_once 'navbar.php';
     </div>
     <style>
     body {
-        background-image: none;			
+        background-image: none;	
+        padding-top: 75px; /* Adjusted based on navbar's height */
+        padding-bottom: 75px;
+        background-image: none;
     }
+    .main-view {
+        max-width: 600px;
+        margin: 0 auto; /* Vertically centered and horizontally centered */
+        padding: 5px;  /* Some padding for better spacing */
+    }		
+    
 </style>
 <?php
 include_once 'footer.php';
